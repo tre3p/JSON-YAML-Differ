@@ -11,6 +11,10 @@ application {
     mainClass = 'hexlet.code.App'
 }
 
+test {
+    useJUnitPlatform()
+}
+
 compileJava {
   options.release = 11
 }
@@ -22,5 +26,7 @@ repositories {
 dependencies {
     implementation 'info.picocli:picocli:4.6.1'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
+    implementation 'junit:junit:4.13.1'
+    implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
 
 }
