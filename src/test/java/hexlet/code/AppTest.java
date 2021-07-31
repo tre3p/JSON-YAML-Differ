@@ -2,8 +2,6 @@ package hexlet.code;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.util.HashMap;
 import java.util.Map;
 
 public class AppTest {
@@ -34,14 +32,14 @@ public class AppTest {
         Map<String, Object> firstYamlMap = Parser.parsFile(firstYaml);
         Map<String, Object> secondYamlMap = Parser.parsFile(secondYaml);
 
-        String expected = "{\n" +
-                "  - follow: false\n" +
-                "    host: hexlet.io\n" +
-                "  - proxy: 123.234.53.22\n" +
-                "  - timeout: 50\n" +
-                "  + timeout: 20\n" +
-                "  + verbose: true\n" +
-                "}";
+        String expected = "{\n"
+                + "  - follow: false\n"
+                + "    host: hexlet.io\n"
+                + "  - proxy: 123.234.53.22\n"
+                + "  - timeout: 50\n"
+                + "  + timeout: 20\n"
+                + "  + verbose: true\n"
+                + "}";
 
         Assertions.assertEquals(Differ.generate(firstYamlMap, secondYamlMap), expected);
     }

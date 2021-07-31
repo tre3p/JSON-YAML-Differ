@@ -12,12 +12,14 @@ public class Parser {
         if (path.endsWith(".json")) {
             ObjectMapper jsonObjectMapper = new ObjectMapper();
                 Map<String, Object> jsonResultMap = jsonObjectMapper.readValue(new File(path),
-                        new TypeReference<>() {});
+                        new TypeReference<>() {
+                        });
                 return jsonResultMap;
         } else {
             ObjectMapper yamlObjectMapper = new ObjectMapper(new YAMLFactory());
             Map<String, Object> resultYamlMap = yamlObjectMapper.readValue(new File(path),
-                    new TypeReference<>() {});
+                    new TypeReference<>() {
+                    });
             return resultYamlMap;
         }
     }
