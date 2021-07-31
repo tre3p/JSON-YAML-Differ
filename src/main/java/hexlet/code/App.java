@@ -1,14 +1,10 @@
 package hexlet.code;
 
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -35,17 +31,10 @@ public final class App implements Runnable {
 
   @Override
   public void run() {
-    ObjectMapper firstObjectMapper = new ObjectMapper();
-    ObjectMapper secondObjectMapper = new ObjectMapper();
-
     try {
-      Map<String, Object> firstMap = firstObjectMapper.readValue(new File(filepath1),
-              new TypeReference<Map<String, Object>>() { });
-      Map<String, Object> secondMap = secondObjectMapper.readValue(new File(filepath2),
-              new TypeReference<Map<String, Object>>() { });
+      Map<String, Object> firstMap = Parser.parsFile(filepath1);
+      Map<String, Object> secondMap = Parser.parsFile(filepath2);
       Differ.generate(firstMap, secondMap);
-    } catch (IOException e) {
-      e.printStackTrace();
     } catch (Exception e) {
       e.printStackTrace();
     }

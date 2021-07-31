@@ -2,6 +2,7 @@ plugins {
     id 'checkstyle'
     id 'com.github.ben-manes.versions' version '0.39.0'
     id 'application'
+    id 'jacoco'
 }
  
 group = 'hexlet.code'
@@ -28,5 +29,6 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
     implementation 'junit:junit:4.13.1'
     implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+    implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.12.4'
 
 }
