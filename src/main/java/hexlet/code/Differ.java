@@ -8,9 +8,10 @@ import java.util.TreeMap;
 
 public class Differ {
     public static String generate(Map<String, Object> firstMap, Map<String, Object> secondMap) {
-        String strForLint = "  - ";
+        final int substringForComparator = 4;
         StringBuilder sb = new StringBuilder();
-        Map<String, Object> temp = new TreeMap<>(Comparator.comparing((String str) -> str.substring(4))
+        Map<String, Object> temp = new TreeMap<>(Comparator.comparing((String str) ->
+                str.substring(substringForComparator))
                 .thenComparingInt(str -> " -+".indexOf(str.charAt(2)))
         );
         sb.append("{\n");
