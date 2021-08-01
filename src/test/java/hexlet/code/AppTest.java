@@ -7,8 +7,8 @@ import java.util.Map;
 public class AppTest {
     @Test
     public void differTestWithFlatJson() throws Exception {
-        String firstJson = "java-project-lvl2/src/test/resources/file1.json";
-        String secondJson = "java-project-lvl2/src/test/resources/file2.json";
+        String firstJson = "src/test/resources/file1.json";
+        String secondJson = "src/test/resources/file2.json";
 
         Map<String, Object> firstJsonMap = Parser.parsFile(firstJson);
         Map<String, Object> secondJsonMap = Parser.parsFile(secondJson);
@@ -26,8 +26,8 @@ public class AppTest {
 
     @Test
     public void differTestWithFlatYaml() throws Exception {
-        String firstYaml = "java-project-lvl2/src/test/resources/file1.yaml";
-        String secondYaml = "java-project-lvl2/src/test/resources/file2.yaml";
+        String firstYaml = "src/test/resources/file1.yaml";
+        String secondYaml = "src/test/resources/file2.yaml";
 
         Map<String, Object> firstYamlMap = Parser.parsFile(firstYaml);
         Map<String, Object> secondYamlMap = Parser.parsFile(secondYaml);
