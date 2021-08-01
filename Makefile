@@ -12,3 +12,7 @@ lint:
 
 build:
 	./gradlew clean build
+
+reports:
+	./gradlew test
+	./gradlew jacocoTestReport
