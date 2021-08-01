@@ -2,14 +2,17 @@ package hexlet.code;
 
 import java.util.Comparator;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 
 
 public class Differ {
     public static String generate(Map<String, Object> firstMap, Map<String, Object> secondMap) {
+        String strForLint = "  - ";
         StringBuilder sb = new StringBuilder();
-        Map<String, Object> temp = new TreeMap<>(Comparator.comparing((String str) -> str.startsWith("  + ") ? 1 : -1)
-                .thenComparing(str -> str.substring("  + ".length())));
+        Map<String, Object> temp = new TreeMap<>(Comparator.comparing((String str) -> str.substring(4))
+                .thenComparingInt(str -> " -+".indexOf(str.charAt(2)))
+        );
         sb.append("{\n");
 
         for (String firstKey : firstMap.keySet()) {
@@ -22,13 +25,13 @@ public class Differ {
                 }
                 if (firstMap.containsKey(firstKey)
                         && secondMap.containsKey(firstKey)
-                        && !firstMap.get(firstKey).equals(secondMap.get(firstKey))) {
+                        && !Objects.equals(firstMap.get(firstKey), secondMap.get(firstKey))) {
                     temp.put("  + " + firstKey + ": ", secondMap.get(firstKey) + "\n");
                     temp.put("  - " + firstKey + ": ", firstMap.get(firstKey) + "\n");
                 }
                 if (firstMap.containsKey(firstKey)
                         && secondMap.containsKey(secondKey)
-                        && firstMap.get(firstKey).equals(secondMap.get(firstKey))) {
+                        && Objects.equals(firstMap.get(firstKey), secondMap.get(firstKey))) {
                     temp.put("    " + firstKey + ": ", firstMap.get(firstKey) + "\n");
                 }
 
