@@ -1,6 +1,8 @@
 package hexlet.code;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import hexlet.code.Formatters.Stylish;
 import org.junit.jupiter.api.Test;
 import java.util.Map;
 
@@ -44,22 +46,30 @@ public class AppTest {
     void differTestWithFlatJson() throws Exception {
         String firstJson = "src/test/resources/file1.json";
         String secondJson = "src/test/resources/file2.json";
+        String format = "stylish";
 
         Map<String, Object> firstJsonMap = Parser.parsFile(firstJson);
         Map<String, Object> secondJsonMap = Parser.parsFile(secondJson);
 
-        assertEquals(expectedForFlat, Differ.stylishGenerate(firstJsonMap, secondJsonMap));
+        Map<String, String> resultOfDiff = Differ.generate(firstJsonMap, secondJsonMap);
+        String actual = Stylish.stylishGenerate(resultOfDiff, firstJsonMap, secondJsonMap);
+
+        assertEquals(expectedForFlat, actual);
     }
 
     @Test
     void differTestWithFlatYaml() throws Exception {
         String firstYaml = "src/test/resources/file1.yaml";
         String secondYaml = "src/test/resources/file2.yaml";
+        String format = "stylish";
 
         Map<String, Object> firstYamlMap = Parser.parsFile(firstYaml);
         Map<String, Object> secondYamlMap = Parser.parsFile(secondYaml);
 
-        assertEquals(expectedForFlat, Differ.stylishGenerate(firstYamlMap, secondYamlMap));
+        Map<String, String> resultOfDiff = Differ.generate(firstYamlMap, secondYamlMap);
+        String actual = Stylish.stylishGenerate(resultOfDiff, firstYamlMap, secondYamlMap);
+
+        assertEquals(expectedForFlat, actual);
     }
 
     @Test
@@ -70,7 +80,10 @@ public class AppTest {
         Map<String, Object> firstRecursiveMap = Parser.parsFile(firstJson);
         Map<String, Object> secondRecursiveMap = Parser.parsFile(secondJson);
 
-        assertEquals(expectedForRecursive, Differ.stylishGenerate(firstRecursiveMap, secondRecursiveMap));
+        Map<String, String> resultOfDiff = Differ.generate(firstRecursiveMap, secondRecursiveMap);
+        String actual = Stylish.stylishGenerate(resultOfDiff, firstRecursiveMap, secondRecursiveMap);
+
+        assertEquals(expectedForRecursive, actual);
     }
 
     @Test
@@ -81,6 +94,9 @@ public class AppTest {
         Map<String, Object> firstRecursiveMap = Parser.parsFile(firstYaml);
         Map<String, Object> secondRecursiveMap = Parser.parsFile(secondYaml);
 
-        assertEquals(expectedForRecursive, Differ.stylishGenerate(firstRecursiveMap, secondRecursiveMap));
+        Map<String, String> resultOfDiff = Differ.generate(firstRecursiveMap, secondRecursiveMap);
+        String actual = Stylish.stylishGenerate(resultOfDiff, firstRecursiveMap, secondRecursiveMap);
+
+        assertEquals(expectedForRecursive, actual);
     }
 }

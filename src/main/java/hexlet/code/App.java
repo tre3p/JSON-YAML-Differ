@@ -1,6 +1,5 @@
 package hexlet.code;
 
-
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -30,23 +29,13 @@ public final class App implements Runnable {
 
   @Override
   public void run() {
-    if (format.equals("stylish")) {
-      try {
-        Map<String, Object> firstMap = Parser.parsFile(filepath1);
-        Map<String, Object> secondMap = Parser.parsFile(filepath2);
-        Differ.stylishGenerate(firstMap, secondMap);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    } else {
-      try {
-        Map<String, Object> firstMap = Parser.parsFile(filepath1);
-        Map<String, Object> secondMap = Parser.parsFile(filepath2);
-        Differ.plainGenerate(firstMap, secondMap);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+    try {
+      Map<String, Object> firstMap = Parser.parsFile(filepath1);
+      Map<String, Object> secondMap = Parser.parsFile(filepath2);
+      Map<String, String> mapForFormatter = Differ.generate(firstMap, secondMap);
+      Formatter.chooseFormat(format, mapForFormatter, firstMap, secondMap);
+    } catch (Exception e) {
+      e.printStackTrace();
     }
-
   }
 }
