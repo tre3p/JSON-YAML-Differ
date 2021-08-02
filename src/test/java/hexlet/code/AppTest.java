@@ -48,7 +48,7 @@ public class AppTest {
         Map<String, Object> firstJsonMap = Parser.parsFile(firstJson);
         Map<String, Object> secondJsonMap = Parser.parsFile(secondJson);
 
-        assertEquals(expectedForFlat, Differ.generate(firstJsonMap, secondJsonMap));
+        assertEquals(expectedForFlat, Differ.stylishGenerate(firstJsonMap, secondJsonMap));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class AppTest {
         Map<String, Object> firstYamlMap = Parser.parsFile(firstYaml);
         Map<String, Object> secondYamlMap = Parser.parsFile(secondYaml);
 
-        assertEquals(expectedForFlat, Differ.generate(firstYamlMap, secondYamlMap));
+        assertEquals(expectedForFlat, Differ.stylishGenerate(firstYamlMap, secondYamlMap));
     }
 
     @Test
@@ -70,7 +70,7 @@ public class AppTest {
         Map<String, Object> firstRecursiveMap = Parser.parsFile(firstJson);
         Map<String, Object> secondRecursiveMap = Parser.parsFile(secondJson);
 
-        assertEquals(expectedForRecursive, Differ.generate(firstRecursiveMap, secondRecursiveMap));
+        assertEquals(expectedForRecursive, Differ.stylishGenerate(firstRecursiveMap, secondRecursiveMap));
     }
 
     @Test
@@ -81,6 +81,6 @@ public class AppTest {
         Map<String, Object> firstRecursiveMap = Parser.parsFile(firstYaml);
         Map<String, Object> secondRecursiveMap = Parser.parsFile(secondYaml);
 
-        assertEquals(expectedForRecursive, Differ.generate(firstRecursiveMap, secondRecursiveMap));
+        assertEquals(expectedForRecursive, Differ.stylishGenerate(firstRecursiveMap, secondRecursiveMap));
     }
 }

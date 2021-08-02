@@ -20,7 +20,7 @@ public final class App implements Runnable {
   @Parameters(index = "1", description = "path to second file")
   private String filepath2;
 
-  @Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
+  @Option(names = {"-f", "--format"}, description = "output format [default: stylish]", defaultValue = "stylish")
   private String format;
 
 
@@ -30,12 +30,23 @@ public final class App implements Runnable {
 
   @Override
   public void run() {
-    try {
-      Map<String, Object> firstMap = Parser.parsFile(filepath1);
-      Map<String, Object> secondMap = Parser.parsFile(filepath2);
-      Differ.generate(firstMap, secondMap);
-    } catch (Exception e) {
-      e.printStackTrace();
+    if (format.equals("stylish")) {
+      try {
+        Map<String, Object> firstMap = Parser.parsFile(filepath1);
+        Map<String, Object> secondMap = Parser.parsFile(filepath2);
+        Differ.stylishGenerate(firstMap, secondMap);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    } else {
+      try {
+        Map<String, Object> firstMap = Parser.parsFile(filepath1);
+        Map<String, Object> secondMap = Parser.parsFile(filepath2);
+        Differ.plainGenerate(firstMap, secondMap);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
+
   }
 }
