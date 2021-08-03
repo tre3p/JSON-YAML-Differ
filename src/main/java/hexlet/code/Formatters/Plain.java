@@ -32,6 +32,7 @@ public class Plain {
                     temp.put("Property '" + map.getKey(), "' was removed\n");
                     break;
                 default:
+                    break;
             }
         }
 
