@@ -4,7 +4,6 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
-import java.util.Map;
 
 @Command(
         name = "gendiff",
@@ -30,10 +29,7 @@ public final class App implements Runnable {
   @Override
   public void run() {
     try {
-      Map<String, Object> firstMap = Parser.parsFile(filepath1);
-      Map<String, Object> secondMap = Parser.parsFile(filepath2);
-      Map<String, String> mapForFormatter = Differ.generate(firstMap, secondMap);
-      Formatter.chooseFormat(format, mapForFormatter, firstMap, secondMap);
+      Differ.generate(format, filepath1, filepath2);
     } catch (Exception e) {
       e.printStackTrace();
     }

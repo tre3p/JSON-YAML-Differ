@@ -1,12 +1,21 @@
 package hexlet.code;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import hexlet.code.Formatters.Plain;
+import hexlet.code.Formatters.Stylish;
+import java.io.File;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Objects;
 
 
 public class Differ {
-    public static Map generate(Map<String, Object> firstMap, Map<String, Object> secondMap) {
+    public static String generate(String format,
+                               String filepath1,
+                               String filepath2) throws Exception {
+        String result;
+        Map<String, Object> firstMap = Parser.parsFile(filepath1);
+        Map<String, Object> secondMap = Parser.parsFile(filepath2);
         Map<String, String> temp = new HashMap<>();
 
         for (String firstKey : firstMap.keySet()) {
@@ -29,6 +38,18 @@ public class Differ {
                 }
             }
         }
-        return temp;
+
+        if (format.equals("stylish")) {
+            return Stylish.stylishGenerate(temp, firstMap, secondMap);
+        } else if (format.equals("plain")) {
+            return Plain.plainGenerate(temp, firstMap, secondMap);
+        } else if (format.equals("json")) {
+            ObjectMapper jsonMapper = new ObjectMapper();
+            result = Stylish.stylishGenerate(temp, firstMap, secondMap);
+            jsonMapper.writeValue(new File("src/output/result.json"),
+                    result.replaceAll("\\n", "").replaceAll("    ", ""));
+            return result;
+        }
+        return null;
     }
 }
