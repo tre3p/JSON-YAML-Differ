@@ -13,6 +13,9 @@ Example of diff between recursive json:
 Example of diff between flat yaml:
 <a href="https://asciinema.org/a/i3jXHLSbhUgJarJP0ojNuhxpv" target="_blank"><img src="https://asciinema.org/a/i3jXHLSbhUgJarJP0ojNuhxpv.svg" /></a>
 
+Example of diff between recursive yaml:
+<a href="https://asciinema.org/a/i9TFcB6eJOeef5z5p0GYJ71Zv" target="_blank"><img src="https://asciinema.org/a/i9TFcB6eJOeef5z5p0GYJ71Zv.svg" /></a>
+
 Example of diff between flat json in plain format:
 <a href="https://asciinema.org/a/2Jsc1gfYrTXPzYeqiVuyuZPRm" target="_blank"><img src="https://asciinema.org/a/2Jsc1gfYrTXPzYeqiVuyuZPRm.svg" /></a>
 
