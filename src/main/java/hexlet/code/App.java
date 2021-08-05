@@ -26,9 +26,6 @@ public final class App implements Callable<String> {
   public static void main(String[] args) {
     final var commandLineRunner = new CommandLine(new App());
     commandLineRunner.execute(args);
-
-    final String result = commandLineRunner.getExecutionResult();
-    System.out.println(result);
   }
 
   @Override
