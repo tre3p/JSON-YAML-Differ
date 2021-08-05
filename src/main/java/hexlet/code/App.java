@@ -18,15 +18,15 @@ public final class App implements Runnable {
   @Parameters(index = "1", description = "path to second file")
   private String filepath2;
 
-  @Option(names = {"-f", "--format"}, description = "output format [default: stylish]", defaultValue = "stylish")
-  private String format;
+  @Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
+  private String format = "stylish";
 
   public static void main(String[] args) {
     CommandLine.run(new App(), args);
   }
 
   public String getFormat() {
-    return format = "stylish";
+    return format;
   }
 
   @Override
