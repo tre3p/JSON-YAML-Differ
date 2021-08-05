@@ -10,10 +10,8 @@ public class Parser {
     public static Map<String, Object> parsFile(String path) throws Exception {
         if (path.endsWith(".json")) {
             ObjectMapper jsonObjectMapper = new ObjectMapper();
-            Map<String, Object> jsonResultMap = jsonObjectMapper.readValue(new File(path),
-                        new TypeReference<>() {
-                        });
-            return jsonResultMap;
+            Map<String, Object> jsonResultMap = jsonObjectMapper.readValue(new File(path), new TypeReference<>() {});
+    return jsonResultMap;
         } else if (path.endsWith(".yaml") || path.endsWith(".yml")) {
             ObjectMapper yamlObjectMapper = new ObjectMapper(new YAMLFactory());
             Map<String, Object> resultYamlMap = yamlObjectMapper.readValue(new File(path),
