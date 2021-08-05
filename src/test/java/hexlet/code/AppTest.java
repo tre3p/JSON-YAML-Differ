@@ -58,7 +58,7 @@ public class AppTest {
         String firstJson = "src/test/resources/file1.json";
         String secondJson = "src/test/resources/file2.json";
 
-        assertEquals(expectedForFlat, Differ.generate("stylish", firstJson, secondJson));
+        assertEquals(expectedForFlat, Differ.generate(firstJson, secondJson));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class AppTest {
         String firstJson = "src/test/resources/firstRecursiveJson.json";
         String secondJson = "src/test/resources/secondRecursiveJson.json";
 
-        assertEquals(expectedForRecursive, Differ.generate("stylish", firstJson, secondJson));
+        assertEquals(expectedForRecursive, Differ.generate(firstJson, secondJson));
     }
 
     @Test
@@ -82,7 +82,7 @@ public class AppTest {
         String firstYaml = "src/test/resources/firstRecursiveYaml.yaml";
         String secondYaml = "src/test/resources/secondRecursiveYaml.yaml";
 
-        assertEquals(expectedForRecursive, Differ.generate("stylish", firstYaml, secondYaml));
+        assertEquals(expectedForRecursive, Differ.generate(firstYaml, secondYaml));
     }
 
     @Test
@@ -90,6 +90,6 @@ public class AppTest {
         String firstJson = "src/test/resources/firstRecursiveJson.json";
         String secondJson = "src/test/resources/secondRecursiveJson.json";
 
-        assertEquals(expectedForPlainOutput, Differ.generate("plain", firstJson, secondJson));
+        assertEquals(expectedForPlainOutput, Differ.generate(firstJson, secondJson, "plain"));
     }
 }
