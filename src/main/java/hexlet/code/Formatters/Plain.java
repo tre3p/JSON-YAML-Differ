@@ -67,6 +67,6 @@ public class Plain {
             sb.append(test.getKey()).append(test.getValue());
         }
         System.out.println(sb);
-        return String.valueOf(sb);
+        return String.valueOf(sb).trim();
     }
 }
