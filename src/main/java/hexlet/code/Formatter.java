@@ -25,7 +25,6 @@ public class Formatter {
         if (format.equals("json")) {
             ObjectMapper objectMapper = new ObjectMapper();
             String result = objectMapper.writeValueAsString(Stylish.stylishGenerate(template, firstMap, secondMap));
-            result = result.replaceAll("\\n", "");
             System.out.println(result);
             return result;
         }
