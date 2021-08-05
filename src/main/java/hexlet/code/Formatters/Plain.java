@@ -24,6 +24,10 @@ public class Plain {
                     || firstEntrySet.getValue() instanceof Arrays) {
                 firstMap.put(firstEntrySet.getKey(), "[complex value]");
             }
+
+            if (firstEntrySet.getValue() instanceof String && !firstEntrySet.getValue().equals("[complex value]")) {
+                firstMap.put(firstEntrySet.getKey(), "'" + firstMap.get(firstEntrySet.getKey()) + "'");
+            }
         }
 
         for (Map.Entry<String, Object> secondEntrySet : secondMap.entrySet()) {
@@ -32,20 +36,24 @@ public class Plain {
                     || secondEntrySet.getValue() instanceof Arrays) {
                 secondMap.put(secondEntrySet.getKey(), "[complex value]");
             }
+
+            if (secondEntrySet.getValue() instanceof String && !secondEntrySet.getValue().equals("[complex value]")) {
+                secondMap.put(secondEntrySet.getKey(), "'" + secondMap.get(secondEntrySet.getKey()) + "'");
+            }
         }
 
         for (Map.Entry<String, String> map : keys.entrySet()) {
             switch (map.getValue()) {
                 case "added":
                     temp.put("Property '"
-                            + map.getKey(), "' was added with value '"
-                            + secondMap.get(map.getKey()) + "'\n");
+                            + map.getKey(), "' was added with value: "
+                            + secondMap.get(map.getKey()) + "\n");
                     break;
                 case "changed":
                     temp.put("Property '"
-                            + map.getKey(), "' was updated. From '"
-                            + firstMap.get(map.getKey()) + "' to '"
-                            + secondMap.get(map.getKey()) + "'\n");
+                            + map.getKey(), "' was updated. From "
+                            + firstMap.get(map.getKey()) + " to "
+                            + secondMap.get(map.getKey()) + "\n");
                     break;
                 case "deleted":
                     temp.put("Property '" + map.getKey(), "' was removed\n");
@@ -59,6 +67,6 @@ public class Plain {
             sb.append(test.getKey()).append(test.getValue());
         }
         System.out.println(sb);
-        return String.valueOf(sb);
+        return String.valueOf(sb).trim();
     }
 }
