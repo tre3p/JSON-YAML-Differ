@@ -66,7 +66,7 @@ public class AppTest {
         String firstYaml = "src/test/resources/file1.yaml";
         String secondYaml = "src/test/resources/file2.yaml";
 
-        assertEquals(expectedForFlat, Differ.generate(firstYaml, secondYaml, "stylish"));
+        assertEquals(expectedForFlat, Differ.generate(firstYaml, secondYaml));
     }
 
     @Test
