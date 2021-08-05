@@ -26,7 +26,7 @@ public final class App implements Runnable {
   }
 
   public String getFormat() {
-    return format;
+    return format = "stylish";
   }
 
   @Override
