@@ -65,6 +65,7 @@ public class Plain {
         for (Map.Entry<String, Object> test : temp.entrySet()) {
             sb.append(test.getKey()).append(test.getValue());
         }
+        System.out.println(String.valueOf(sb).trim());
         return String.valueOf(sb).trim();
     }
 }
