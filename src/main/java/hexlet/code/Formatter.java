@@ -20,8 +20,8 @@ public class Formatter {
         }
         if (format.equals("json")) {
             ObjectMapper objectMapper = new ObjectMapper();
-            Stylish.stylishGenerate(template, firstMap, secondMap);
-            return objectMapper.writeValueAsString(Stylish.stylishGenerate(template, firstMap, secondMap));
+            String result = objectMapper.writeValueAsString(Stylish.stylishGenerate(template, firstMap, secondMap));
+            return result;
         }
         return null;
     }
