@@ -2,7 +2,10 @@ package hexlet.code.Formatters;
 
 import java.util.Comparator;
 import java.util.Map;
+import java.util.List;
 import java.util.TreeMap;
+import java.util.Arrays;
+
 
 public class Plain {
     public static String plainGenerate(Map<String, String> keys,
@@ -14,6 +17,22 @@ public class Plain {
                 str.substring(substringForLinter))
                 .thenComparingInt(str -> "Property ".indexOf(str.charAt(2)))
         );
+
+        for (Map.Entry<String, Object> firstEntrySet : firstMap.entrySet()) {
+            if (firstEntrySet.getValue() instanceof Map
+                    || firstEntrySet.getValue() instanceof List
+                    || firstEntrySet.getValue() instanceof Arrays) {
+                firstMap.put(firstEntrySet.getKey(), "[complex value]");
+            }
+        }
+
+        for (Map.Entry<String, Object> secondEntrySet : secondMap.entrySet()) {
+            if (secondEntrySet.getValue() instanceof Map
+                    || secondEntrySet.getValue() instanceof List
+                    || secondEntrySet.getValue() instanceof Arrays) {
+                secondMap.put(secondEntrySet.getKey(), "[complex value]");
+            }
+        }
 
         for (Map.Entry<String, String> map : keys.entrySet()) {
             switch (map.getValue()) {

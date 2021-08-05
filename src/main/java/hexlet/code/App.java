@@ -21,15 +21,18 @@ public final class App implements Runnable {
   @Option(names = {"-f", "--format"}, description = "output format [default: stylish]", defaultValue = "stylish")
   private String format;
 
-
   public static void main(String[] args) {
     CommandLine.run(new App(), args);
+  }
+
+  public String getFormat() {
+    return format;
   }
 
   @Override
   public void run() {
     try {
-      Differ.generate(format, filepath1, filepath2);
+      Differ.generate(filepath1, filepath2);
     } catch (Exception e) {
       e.printStackTrace();
     }

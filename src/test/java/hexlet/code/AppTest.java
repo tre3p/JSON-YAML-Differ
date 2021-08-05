@@ -39,16 +39,16 @@ public class AppTest {
             + "  + setting3: none\n"
             + "}";
 
-    private final String expectedForPlainOutput = "Property 'chars2' was updated. From '[d, e, f]' to 'false'\n"
+    private final String expectedForPlainOutput = "Property 'chars2' was updated. From '[complex value]' to 'false'\n"
             + "Property 'checked' was updated. From 'false' to 'true'\n"
-            + "Property 'default' was updated. From 'null' to '[value1, value2]'\n"
+            + "Property 'default' was updated. From 'null' to '[complex value]'\n"
             + "Property 'id' was updated. From '45' to 'null'\n"
             + "Property 'key1' was removed\n"
             + "Property 'key2' was added with value 'value2'\n"
-            + "Property 'numbers2' was updated. From '[2, 3, 4, 5]' to '[22, 33, 44, 55]'\n"
+            + "Property 'numbers2' was updated. From '[complex value]' to '[complex value]'\n"
             + "Property 'numbers3' was removed\n"
-            + "Property 'numbers4' was added with value '[4, 5, 6]'\n"
-            + "Property 'obj1' was added with value '{nestedKey=value, isNested=true}'\n"
+            + "Property 'numbers4' was added with value '[complex value]'\n"
+            + "Property 'obj1' was added with value '[complex value]'\n"
             + "Property 'setting1' was updated. From 'Some value' to 'Another value'\n"
             + "Property 'setting2' was updated. From '200' to '300'\n"
             + "Property 'setting3' was updated. From 'true' to 'none'\n";
@@ -58,7 +58,7 @@ public class AppTest {
         String firstJson = "src/test/resources/file1.json";
         String secondJson = "src/test/resources/file2.json";
 
-        assertEquals(expectedForFlat, Differ.generate("stylish", firstJson, secondJson));
+        assertEquals(expectedForFlat, Differ.generate(firstJson, secondJson, "stylish"));
     }
 
     @Test
@@ -66,7 +66,7 @@ public class AppTest {
         String firstYaml = "src/test/resources/file1.yaml";
         String secondYaml = "src/test/resources/file2.yaml";
 
-        assertEquals(expectedForFlat, Differ.generate("stylish", firstYaml, secondYaml));
+        assertEquals(expectedForFlat, Differ.generate(firstYaml, secondYaml, "stylish"));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class AppTest {
         String firstJson = "src/test/resources/firstRecursiveJson.json";
         String secondJson = "src/test/resources/secondRecursiveJson.json";
 
-        assertEquals(expectedForRecursive, Differ.generate("stylish", firstJson, secondJson));
+        assertEquals(expectedForRecursive, Differ.generate(firstJson, secondJson, "stylish"));
     }
 
     @Test
@@ -82,7 +82,7 @@ public class AppTest {
         String firstYaml = "src/test/resources/firstRecursiveYaml.yaml";
         String secondYaml = "src/test/resources/secondRecursiveYaml.yaml";
 
-        assertEquals(expectedForRecursive, Differ.generate("stylish", firstYaml, secondYaml));
+        assertEquals(expectedForRecursive, Differ.generate(firstYaml, secondYaml, "stylish"));
     }
 
     @Test
@@ -90,6 +90,6 @@ public class AppTest {
         String firstJson = "src/test/resources/firstRecursiveJson.json";
         String secondJson = "src/test/resources/secondRecursiveJson.json";
 
-        assertEquals(expectedForPlainOutput, Differ.generate("plain", firstJson, secondJson));
+        assertEquals(expectedForPlainOutput, Differ.generate(firstJson, secondJson, "plain"));
     }
 }
