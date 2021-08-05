@@ -13,14 +13,20 @@ public class Formatter {
                                    Map<String, Object> secondMap) throws IOException {
 
         if (format.equals("stylish")) {
-            return Stylish.stylishGenerate(template, firstMap, secondMap);
+            String result = Stylish.stylishGenerate(template, firstMap, secondMap);
+            System.out.println(result);
+            return result;
         }
         if (format.equals("plain")) {
-            return Plain.plainGenerate(template, firstMap, secondMap);
+            String result = Plain.plainGenerate(template, firstMap, secondMap);
+            System.out.println(result);
+            return result;
         }
         if (format.equals("json")) {
             ObjectMapper objectMapper = new ObjectMapper();
             String result = objectMapper.writeValueAsString(Stylish.stylishGenerate(template, firstMap, secondMap));
+            result = result.replaceAll("\\n", "");
+            System.out.println(result);
             return result;
         }
         return null;
