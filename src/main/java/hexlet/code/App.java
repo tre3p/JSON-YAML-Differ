@@ -25,10 +25,6 @@ public final class App implements Runnable {
     CommandLine.run(new App(), args);
   }
 
-  public String getFormat() {
-    return format == null ? "stylish" : format;
-  }
-
   @Override
   public void run() {
     try {

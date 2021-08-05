@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.Formatters.Plain;
 import hexlet.code.Formatters.Stylish;
 import java.io.IOException;
@@ -16,6 +17,12 @@ public class Formatter {
         }
         if (format.equals("plain")) {
             return Plain.plainGenerate(template, firstMap, secondMap);
+        }
+        if (format.equals("json")) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            String result = Stylish.stylishGenerate(template, firstMap, secondMap);
+            String test = objectMapper.writeValueAsString(result);
+            return test;
         }
         return null;
     }

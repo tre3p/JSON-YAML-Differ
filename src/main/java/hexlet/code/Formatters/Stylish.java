@@ -37,6 +37,6 @@ public class Stylish {
             sb.append(test.getKey()).append(test.getValue());
         }
         sb.append("}");
-        return String.valueOf(sb);
+        return String.valueOf(sb).trim();
     }
 }

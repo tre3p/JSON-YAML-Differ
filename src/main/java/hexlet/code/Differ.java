@@ -9,11 +9,11 @@ public class Differ {
 
     public static String generate(String filepath1, String filepath2) throws Exception {
         App app = new App();
-        return generate(filepath1, filepath2, app.getFormat());
+        return generate("stylish", filepath1, filepath2);
     }
 
-    public static String generate(String filepath1,
-                                  String filepath2, String format) throws Exception {
+    public static String generate(String format,
+                                  String filepath1, String filepath2) throws Exception {
         Map<String, Object> firstMap = Parser.parsFile(filepath1);
         Map<String, Object> secondMap = Parser.parsFile(filepath2);
         Map<String, String> temp = new HashMap<>();
