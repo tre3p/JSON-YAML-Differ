@@ -26,9 +26,6 @@ public final class App implements Runnable {
   }
 
   public String getFormat() {
-    if (format.isEmpty()) {
-      return "stylish";
-    }
     return format;
   }
 
