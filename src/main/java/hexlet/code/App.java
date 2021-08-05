@@ -28,7 +28,7 @@ public final class App implements Callable<String> {
         commandLineRunner.execute(args);
     }
 
-  @Override
+    @Override
   public String call() throws Exception {
         return Differ.generate(filepath1, filepath2, format);
     }
