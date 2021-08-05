@@ -21,9 +21,8 @@ public class Formatter {
         if (format.equals("json")) {
             ObjectMapper objectMapper = new ObjectMapper();
             String result = Stylish.stylishGenerate(template, firstMap, secondMap);
-            objectMapper.writeValueAsString(result);
             System.out.println(result);
-            return result;
+            return objectMapper.writeValueAsString(result);
         }
         return null;
     }
