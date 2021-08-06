@@ -1,5 +1,7 @@
 package hexlet.code.Formatters;
 
+import hexlet.code.Utils;
+
 import java.util.Comparator;
 import java.util.Map;
 import java.util.List;
@@ -18,29 +20,8 @@ public class Plain {
                 .thenComparingInt(str -> "Property ".indexOf(str.charAt(2)))
         );
 
-        for (Map.Entry<String, Object> firstEntrySet : firstMap.entrySet()) {
-            if (firstEntrySet.getValue() instanceof Map
-                    || firstEntrySet.getValue() instanceof List
-                    || firstEntrySet.getValue() instanceof Arrays) {
-                firstMap.put(firstEntrySet.getKey(), "[complex value]");
-            }
-
-            if (firstEntrySet.getValue() instanceof String && !firstEntrySet.getValue().equals("[complex value]")) {
-                firstMap.put(firstEntrySet.getKey(), "'" + firstMap.get(firstEntrySet.getKey()) + "'");
-            }
-        }
-
-        for (Map.Entry<String, Object> secondEntrySet : secondMap.entrySet()) {
-            if (secondEntrySet.getValue() instanceof Map
-                    || secondEntrySet.getValue() instanceof List
-                    || secondEntrySet.getValue() instanceof Arrays) {
-                secondMap.put(secondEntrySet.getKey(), "[complex value]");
-            }
-
-            if (secondEntrySet.getValue() instanceof String && !secondEntrySet.getValue().equals("[complex value]")) {
-                secondMap.put(secondEntrySet.getKey(), "'" + secondMap.get(secondEntrySet.getKey()) + "'");
-            }
-        }
+        firstMap = mapFormatter(firstMap);
+        secondMap = mapFormatter(secondMap);
 
         for (Map.Entry<String, String> map : keys.entrySet()) {
             switch (map.getValue()) {
@@ -62,9 +43,21 @@ public class Plain {
                     break;
             }
         }
-        for (Map.Entry<String, Object> test : temp.entrySet()) {
-            sb.append(test.getKey()).append(test.getValue());
+        return String.valueOf(Utils.pullStringBuilderWithValues(temp, sb)).trim();
+    }
+
+    public static Map<String, Object> mapFormatter(Map<String, Object> map) {
+        for (Map.Entry<String, Object> firstEntrySet : map.entrySet()) {
+            if (firstEntrySet.getValue() instanceof Map
+                    || firstEntrySet.getValue() instanceof List
+                    || firstEntrySet.getValue() instanceof Arrays) {
+                map.put(firstEntrySet.getKey(), "[complex value]");
+            }
+
+            if (firstEntrySet.getValue() instanceof String && !firstEntrySet.getValue().equals("[complex value]")) {
+                map.put(firstEntrySet.getKey(), "'" + map.get(firstEntrySet.getKey()) + "'");
+            }
         }
-        return String.valueOf(sb).trim();
+        return map;
     }
 }

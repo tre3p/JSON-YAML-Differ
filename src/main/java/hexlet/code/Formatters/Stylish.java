@@ -1,5 +1,7 @@
 package hexlet.code.Formatters;
 
+import hexlet.code.Utils;
+
 import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -14,6 +16,7 @@ public class Stylish {
                 str.substring(substringForLinter))
                 .thenComparingInt(str -> " -+".indexOf(str.charAt(2)))
         );
+
         sb.append("{\n");
         for (Map.Entry<String, String> map : keys.entrySet()) {
             switch (map.getValue()) {
@@ -31,11 +34,11 @@ public class Stylish {
                     temp.put("  - " + map.getKey() + ": ", firstMap.get(map.getKey()) + "\n");
                     break;
                 default:
+                    break;
             }
         }
-        for (Map.Entry<String, Object> test : temp.entrySet()) {
-            sb.append(test.getKey()).append(test.getValue());
-        }
+
+        Utils.pullStringBuilderWithValues(temp, sb);
         sb.append("}");
         return String.valueOf(sb).trim();
     }
