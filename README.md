@@ -30,6 +30,3 @@ Example of diff between flat yaml in plain format:
 
 Example of diff between recursive yaml in plain format:
 <a href="https://asciinema.org/a/cCn4u7KNcbgPSVloScyGUmmMa" target="_blank"><img src="https://asciinema.org/a/cCn4u7KNcbgPSVloScyGUmmMa.svg" /></a>
-
-
-Output in json format is also supported [-f json]
