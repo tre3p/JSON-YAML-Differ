@@ -7,7 +7,7 @@ import java.io.File;
 import java.util.Map;
 
 public class Parser {
-    Map<String, Object> resultMap;
+    private Map<String, Object> resultMap;
     public static Map<String, Object> parsFile(String path) throws Exception {
         Map<String, Object> resultMap = null;
         if (path.endsWith(".json")) {
