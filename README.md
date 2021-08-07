@@ -4,6 +4,9 @@
 ![example workflow](https://github.com/k0damaDEV/java-project-lvl2/actions/workflows/github-actions-demo.yml/badge.svg)
 <a href="https://codeclimate.com/github/k0damaDEV/java-project-lvl2/test_coverage"><img src="https://api.codeclimate.com/v1/badges/d39c2baaced2b7e135ee/test_coverage" /></a>
 
+Supported formats: yaml, json.
+Output supported formats: plain, stylish, json.
+
 Example of diff between flat json:
 <a href="https://asciinema.org/a/aj18JhoUx3QmZZd613u3usY4k" target="_blank"><img src="https://asciinema.org/a/aj18JhoUx3QmZZd613u3usY4k.svg" /></a>
 
@@ -27,6 +30,3 @@ Example of diff between flat yaml in plain format:
 
 Example of diff between recursive yaml in plain format:
 <a href="https://asciinema.org/a/cCn4u7KNcbgPSVloScyGUmmMa" target="_blank"><img src="https://asciinema.org/a/cCn4u7KNcbgPSVloScyGUmmMa.svg" /></a>
-
-
-Output in json format is also supported [-f json]
