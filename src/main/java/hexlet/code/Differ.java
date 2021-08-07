@@ -30,13 +30,13 @@ public class Differ {
                 if (firstMap.containsKey(firstKey) && !secondMap.containsKey(firstKey)) {
                     defaultDiffMap.put(firstKey, "deleted");
                 }
-                if (firstMap.containsKey(firstKey) 
-                    && secondMap.containsKey(firstKey) 
+                if (firstMap.containsKey(firstKey)
+                    && secondMap.containsKey(firstKey)
                     && !Objects.equals(firstMap.get(firstKey), secondMap.get(firstKey))) {
                     defaultDiffMap.put(firstKey, "changed");
                 }
-                if (firstMap.containsKey(firstKey) 
-                    && secondMap.containsKey(secondKey) 
+                if (firstMap.containsKey(firstKey)
+                    && secondMap.containsKey(secondKey)
                     && Objects.equals(firstMap.get(firstKey), secondMap.get(firstKey))) {
                     defaultDiffMap.put(firstKey, "unchanged");
                 }
