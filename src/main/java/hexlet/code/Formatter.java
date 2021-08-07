@@ -11,24 +11,19 @@ public class Formatter {
                                    Map<String, String> template,
                                    Map<String, Object> firstMap,
                                    Map<String, Object> secondMap) throws IOException {
-        String result;
+        String result = null;
 
         if (format.equals("stylish")) {
             result = Stylish.stylishGenerate(template, firstMap, secondMap);
-            System.out.println(result);
-            return result;
         }
         if (format.equals("plain")) {
             result = Plain.plainGenerate(template, firstMap, secondMap);
-            System.out.println(result);
-            return result;
         }
         if (format.equals("json")) {
             ObjectMapper objectMapper = new ObjectMapper();
             result = objectMapper.writeValueAsString(Stylish.stylishGenerate(template, firstMap, secondMap));
-            System.out.println(result);
-            return result;
         }
-        return null;
+        System.out.println(result);
+        return result;
     }
 }

@@ -15,13 +15,34 @@ public class Plain {
                                        Map<String, Object> secondMap) {
         final int substringForLinter = 10;
         StringBuilder sb = new StringBuilder();
-        Map<String, Object> temp = new TreeMap<>(Comparator.comparing((String str) ->
-                str.substring(substringForLinter))
-                .thenComparingInt(str -> "Property ".indexOf(str.charAt(2)))
-        );
-
         firstMap = mapFormatter(firstMap);
         secondMap = mapFormatter(secondMap);
+        Map<String, Object> temp = editMapToPlainFormat(keys, firstMap, secondMap);
+        return String.valueOf(Utils.pullStringBuilderWithValues(temp, sb)).trim();
+    }
+
+    public static Map<String, Object> mapFormatter(Map<String, Object> map) {
+        for (Map.Entry<String, Object> firstEntrySet : map.entrySet()) {
+            if (firstEntrySet.getValue() instanceof Map
+                    || firstEntrySet.getValue() instanceof List
+                    || firstEntrySet.getValue() instanceof Arrays) {
+                map.put(firstEntrySet.getKey(), "[complex value]");
+            }
+
+            if (firstEntrySet.getValue() instanceof String && !firstEntrySet.getValue().equals("[complex value]")) {
+                map.put(firstEntrySet.getKey(), "'" + map.get(firstEntrySet.getKey()) + "'");
+            }
+        }
+        return map;
+    }
+
+    public static Map<String, Object> editMapToPlainFormat(Map<String, String> keys,
+                                                      Map<String, Object> firstMap,
+                                                      Map<String, Object> secondMap) {
+        final int substringForLinter = 10;
+        Map<String, Object> temp = new TreeMap<>(Comparator.comparing((String str) ->
+                str.substring(substringForLinter))
+                .thenComparingInt(str -> "Property ".indexOf(str.charAt(2))));
 
         for (Map.Entry<String, String> map : keys.entrySet()) {
             switch (map.getValue()) {
@@ -43,21 +64,6 @@ public class Plain {
                     break;
             }
         }
-        return String.valueOf(Utils.pullStringBuilderWithValues(temp, sb)).trim();
-    }
-
-    public static Map<String, Object> mapFormatter(Map<String, Object> map) {
-        for (Map.Entry<String, Object> firstEntrySet : map.entrySet()) {
-            if (firstEntrySet.getValue() instanceof Map
-                    || firstEntrySet.getValue() instanceof List
-                    || firstEntrySet.getValue() instanceof Arrays) {
-                map.put(firstEntrySet.getKey(), "[complex value]");
-            }
-
-            if (firstEntrySet.getValue() instanceof String && !firstEntrySet.getValue().equals("[complex value]")) {
-                map.put(firstEntrySet.getKey(), "'" + map.get(firstEntrySet.getKey()) + "'");
-            }
-        }
-        return map;
+        return temp;
     }
 }

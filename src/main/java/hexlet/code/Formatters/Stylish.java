@@ -10,14 +10,23 @@ public class Stylish {
     public static String stylishGenerate(Map<String, String> keys,
                                          Map<String, Object> firstMap,
                                          Map<String, Object> secondMap) {
-        final int substringForLinter = 4;
         StringBuilder sb = new StringBuilder();
-        Map<String, Object> temp = new TreeMap<>(Comparator.comparing((String str) ->
-                str.substring(substringForLinter))
-                .thenComparingInt(str -> " -+".indexOf(str.charAt(2)))
-        );
+        Map<String, Object> temp = editMapToStylishFormat(keys, firstMap, secondMap);
 
         sb.append("{\n");
+        Utils.pullStringBuilderWithValues(temp, sb);
+        sb.append("}");
+        return String.valueOf(sb).trim();
+    }
+
+    public static Map<String, Object> editMapToStylishFormat(Map<String, String> keys,
+                                                      Map<String, Object> firstMap,
+                                                      Map<String, Object> secondMap) {
+        final int substringForLinter = 4;
+        Map<String, Object> temp = new TreeMap<>(Comparator.comparing((String str) ->
+                str.substring(substringForLinter))
+                .thenComparingInt(str -> " -+".indexOf(str.charAt(2))));
+
         for (Map.Entry<String, String> map : keys.entrySet()) {
             switch (map.getValue()) {
                 case "added":
@@ -37,9 +46,6 @@ public class Stylish {
                     break;
             }
         }
-
-        Utils.pullStringBuilderWithValues(temp, sb);
-        sb.append("}");
-        return String.valueOf(sb).trim();
+        return temp;
     }
 }

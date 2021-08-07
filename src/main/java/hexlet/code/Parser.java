@@ -7,17 +7,16 @@ import java.io.File;
 import java.util.Map;
 
 public class Parser {
+    Map<String, Object> resultMap;
     public static Map<String, Object> parsFile(String path) throws Exception {
+        Map<String, Object> resultMap = null;
         if (path.endsWith(".json")) {
             ObjectMapper jsonObjectMapper = new ObjectMapper();
-            Map<String, Object> jsonResultMap = jsonObjectMapper.readValue(new File(path), new TypeReference<>() { });
-            return jsonResultMap;
+            resultMap = jsonObjectMapper.readValue(new File(path), new TypeReference<>() { });
         } else if (path.endsWith(".yaml") || path.endsWith(".yml")) {
             ObjectMapper yamlObjectMapper = new ObjectMapper(new YAMLFactory());
-            Map<String, Object> resultYamlMap = yamlObjectMapper.readValue(new File(path),
-                    new TypeReference<>() { });
-            return resultYamlMap;
+            resultMap = yamlObjectMapper.readValue(new File(path), new TypeReference<>() { });
         }
-        return null;
+        return resultMap;
     }
 }
