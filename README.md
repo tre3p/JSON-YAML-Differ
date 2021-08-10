@@ -10,7 +10,7 @@ Output supported formats: plain, stylish, json.
 Example of diff between flat json:
 <a href="https://asciinema.org/a/aj18JhoUx3QmZZd613u3usY4k" target="_blank"><img src="https://asciinema.org/a/aj18JhoUx3QmZZd613u3usY4k.svg" /></a>
 
-Example of diff between recursive json:
+Example of diff between recursive json: 
 <a href="https://asciinema.org/a/IjHV8NACVj99yhw9Pl37R4o40" target="_blank"><img src="https://asciinema.org/a/IjHV8NACVj99yhw9Pl37R4o40.svg" /></a>
 
 Example of diff between flat yaml:
