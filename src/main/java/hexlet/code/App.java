@@ -30,6 +30,7 @@ public final class App implements Callable<String> {
 
     @Override
   public String call() throws Exception {
+        System.out.println(Differ.generate(filepath1, filepath2, format));
         return Differ.generate(filepath1, filepath2, format);
     }
 }

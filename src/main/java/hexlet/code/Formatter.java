@@ -1,6 +1,6 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import hexlet.code.Formatters.Json;
 import hexlet.code.Formatters.Plain;
 import hexlet.code.Formatters.Stylish;
 import java.io.IOException;
@@ -20,10 +20,8 @@ public class Formatter {
             result = Plain.plainGenerate(template, firstMap, secondMap);
         }
         if (format.equals("json")) {
-            ObjectMapper objectMapper = new ObjectMapper();
-            result = objectMapper.writeValueAsString(Stylish.stylishGenerate(template, firstMap, secondMap));
+            result = Json.jsonGenerate(template, firstMap, secondMap);
         }
-        System.out.println(result);
         return result;
     }
 }

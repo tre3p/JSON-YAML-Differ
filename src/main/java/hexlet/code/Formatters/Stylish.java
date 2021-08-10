@@ -1,7 +1,6 @@
 package hexlet.code.Formatters;
 
-import hexlet.code.Utils;
-
+import hexlet.code.Formation;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -14,7 +13,7 @@ public class Stylish {
         Map<String, Object> temp = editMapToStylishFormat(keys, firstMap, secondMap);
 
         sb.append("{\n");
-        Utils.pullStringBuilderWithValues(temp, sb);
+        Formation.pullStringBuilderWithValues(temp, sb);
         sb.append("}");
         return String.valueOf(sb).trim();
     }

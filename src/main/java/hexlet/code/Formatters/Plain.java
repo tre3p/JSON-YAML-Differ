@@ -1,6 +1,6 @@
 package hexlet.code.Formatters;
 
-import hexlet.code.Utils;
+import hexlet.code.Formation;
 
 import java.util.Comparator;
 import java.util.Map;
@@ -13,12 +13,11 @@ public class Plain {
     public static String plainGenerate(Map<String, String> keys,
                                        Map<String, Object> firstMap,
                                        Map<String, Object> secondMap) {
-        final int substringForLinter = 10;
         StringBuilder sb = new StringBuilder();
         firstMap = mapFormatter(firstMap);
         secondMap = mapFormatter(secondMap);
         Map<String, Object> temp = editMapToPlainFormat(keys, firstMap, secondMap);
-        return String.valueOf(Utils.pullStringBuilderWithValues(temp, sb)).trim();
+        return String.valueOf(Formation.pullStringBuilderWithValues(temp, sb)).trim();
     }
 
     public static Map<String, Object> mapFormatter(Map<String, Object> map) {
