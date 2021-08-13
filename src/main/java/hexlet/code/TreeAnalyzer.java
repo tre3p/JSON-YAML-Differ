@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class Formation {
+public class TreeAnalyzer {
     public static Map<String, String> pullMapWithDefaultDiff(Map<String, Object> firstMap,
                                                              Map<String, Object> secondMap) {
         Map<String, String> defaultDiffMap = new HashMap<>();

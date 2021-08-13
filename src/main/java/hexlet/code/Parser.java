@@ -1,17 +1,22 @@
 package hexlet.code;
 
-import java.io.IOException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Parser {
-    public static Map<String, Object> parsFile(String path) throws IOException {
-        Map<String, Object> result = new HashMap<>();
-        if (path.endsWith(".json")) {
-            result = Differ.jsonParse(path);
-        } else if (path.endsWith(".yaml") || path.endsWith(".yml")) {
-            result = Differ.yamlParse(path);
+    public static Map<String, Object> parseToMap(String fileToString, String extension) throws JsonProcessingException {
+        if (extension.endsWith(".json")) {
+            ObjectMapper jsonObjectMapper = new ObjectMapper();
+            return jsonObjectMapper.readValue(fileToString, Map.class);
         }
-        return result;
+        if (extension.endsWith(".yaml") || extension.endsWith(".yml")) {
+            ObjectMapper yamlObjectMapper = new ObjectMapper(new YAMLFactory());
+            return yamlObjectMapper.readValue(fileToString, Map.class);
+        }
+        return new HashMap<>();
     }
 }

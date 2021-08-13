@@ -1,7 +1,6 @@
 package hexlet.code.Formatters;
 
-import hexlet.code.Formation;
-
+import hexlet.code.TreeAnalyzer;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.List;
@@ -17,7 +16,7 @@ public class Plain {
         firstMap = mapFormatter(firstMap);
         secondMap = mapFormatter(secondMap);
         Map<String, Object> temp = editMapToPlainFormat(keys, firstMap, secondMap);
-        return String.valueOf(Formation.pullStringBuilderWithValues(temp, sb)).trim();
+        return String.valueOf(TreeAnalyzer.pullStringBuilderWithValues(temp, sb)).trim();
     }
 
     public static Map<String, Object> mapFormatter(Map<String, Object> map) {
