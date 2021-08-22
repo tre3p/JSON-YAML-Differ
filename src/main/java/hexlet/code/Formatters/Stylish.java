@@ -17,7 +17,7 @@ public class Stylish {
         sb.append("{\n");
         Utils.pullStringBuilderWithValues(temp, sb);
         sb.append("}\n");
-        return sb.toString();
+        return sb.toString().trim();
     }
 
     public static Map<String, Object> editMapToStylishFormat(List<Map<String, Object>> diffList) {

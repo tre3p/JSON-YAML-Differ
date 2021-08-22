@@ -22,20 +22,7 @@ public class AppTest {
     private Path pathToPlain = getPath("src/test/resources/expectedForPlain");
     private final String expectedForPlainOutput = Files.readString(pathToPlain);
 
-    private Path pathtohexlet = getPath("/Users/noname/Downloads/test-data 2/src/test/resources/fixtures/result_stylish.txt");
-    private final String expectedHexlet = Files.readString(pathtohexlet);
-
-
-
     public AppTest() throws IOException {
-    }
-
-    @Test
-    void hexlettest() throws Exception {
-        String firstjson = "/Users/noname/Downloads/test-data 2/src/test/resources/fixtures/file1.json";
-        String secondJson = "/Users/noname/Downloads/test-data 2/src/test/resources/fixtures/file2.json";
-
-        assertEquals(expectedHexlet, Differ.generate(firstjson, secondJson, "stylish"));
     }
 
     @Test
