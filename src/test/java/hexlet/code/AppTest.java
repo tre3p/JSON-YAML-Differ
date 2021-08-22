@@ -8,14 +8,21 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class AppTest {
-    private Path pathForFlat = Paths.get("src/test/resources/expectedForStylishPlain.json").normalize();
+
+    public static Path getPath(String path) {
+        return Paths.get(path).toAbsolutePath().normalize();
+    }
+
+    private Path pathForFlat = getPath("src/test/resources/expectedForStylishPlain");
     private final String expectedForFlat = Files.readString(pathForFlat);
 
-    private Path pathToRecursive = Paths.get("src/test/resources/expectedForRecursive").normalize();
+    private Path pathToRecursive = getPath("src/test/resources/expectedForRecursive");
     private final String expectedForRecursive = Files.readString(pathToRecursive);
 
-    private Path pathToPlain = Paths.get("src/test/resources/expectedForPlain").normalize();
+    private Path pathToPlain = getPath("src/test/resources/expectedForPlain");
     private final String expectedForPlainOutput = Files.readString(pathToPlain);
+
+
 
     public AppTest() throws IOException {
     }
@@ -34,6 +41,14 @@ public class AppTest {
         String secondYaml = "src/test/resources/fixtures/file2.yaml";
 
         assertEquals(expectedForFlat, Differ.generate(firstYaml, secondYaml));
+    }
+
+    @Test
+    void differTestWithStylishOutput() throws Exception {
+        String firstJson = "src/test/resources/fixtures/file1.json";
+        String secondJson = "src/test/resources/fixtures/file2.json";
+
+        assertEquals(expectedForFlat, Differ.generate(firstJson, secondJson, "stylish"));
     }
 
     @Test

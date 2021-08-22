@@ -1,41 +1,47 @@
 package hexlet.code;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class TreeAnalyzer {
-    public static Map<String, String> pullMapWithDefaultDiff(Map<String, Object> firstMap,
+    public static List<Map<String, Object>> pullMapWithDefaultDiff(Map<String, Object> firstMap,
                                                              Map<String, Object> secondMap) {
-        Map<String, String> defaultDiffMap = new HashMap<>();
+        Set<String> keySet = pullSetWithKeys(firstMap, secondMap);
+        List<Map<String, Object>> diffList = new LinkedList<>();
 
-        for (String firstKey : firstMap.keySet()) {
-            for (String secondKey : secondMap.keySet()) {
-                if (secondMap.containsKey(secondKey) && !firstMap.containsKey(secondKey)) {
-                    defaultDiffMap.put(secondKey, "added");
-                }
-                if (firstMap.containsKey(firstKey) && !secondMap.containsKey(firstKey)) {
-                    defaultDiffMap.put(firstKey, "deleted");
-                }
-                if (firstMap.containsKey(firstKey)
-                        && secondMap.containsKey(firstKey)
-                        && !Objects.equals(firstMap.get(firstKey), secondMap.get(firstKey))) {
-                    defaultDiffMap.put(firstKey, "changed");
-                }
-                if (firstMap.containsKey(firstKey)
-                        && secondMap.containsKey(secondKey)
-                        && Objects.equals(firstMap.get(firstKey), secondMap.get(firstKey))) {
-                    defaultDiffMap.put(firstKey, "unchanged");
-                }
+        for (String s : keySet) {
+            if (!firstMap.containsKey(s)) {
+                Map<String, Object> temp = new LinkedHashMap<>();
+                temp.put(s, "added");
+                temp.put("newValue", secondMap.get(s));
+                diffList.add(temp);
+            }
+            if (!secondMap.containsKey(s)) {
+                Map<String, Object> temp = new LinkedHashMap<>();
+                temp.put(s, "deleted");
+                temp.put("oldValue", firstMap.get(s));
+                diffList.add(temp);
+            }
+            if (secondMap.containsKey(s)
+                    && firstMap.containsKey(s) && !Objects.equals(firstMap.get(s), secondMap.get(s))) {
+                Map<String, Object> temp = new LinkedHashMap<>();
+                temp.put(s, "changed");
+                temp.put("oldValue", firstMap.get(s));
+                temp.put("newValue", secondMap.get(s));
+                diffList.add(temp);
+            }
+            if (Objects.equals(firstMap.get(s), secondMap.get(s))) {
+                Map<String, Object> temp = new LinkedHashMap<>();
+                temp.put(s, "unchanged");
+                temp.put("value", firstMap.get(s));
+                diffList.add(temp);
             }
         }
-        return defaultDiffMap;
+        return diffList;
     }
 
-    public static StringBuilder pullStringBuilderWithValues(Map<String, Object> map, StringBuilder sb) {
-        for (Map.Entry<String, Object> test : map.entrySet()) {
-            sb.append(test.getKey()).append(test.getValue());
-        }
-        return sb;
+    public static Set<String> pullSetWithKeys(Map<String, Object> firstMap, Map<String, Object> secondMap) {
+        Set<String> keySet = new HashSet<>(firstMap.keySet());
+        keySet.addAll(secondMap.keySet());
+        return keySet;
     }
 }

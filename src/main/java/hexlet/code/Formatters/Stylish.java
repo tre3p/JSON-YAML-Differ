@@ -1,48 +1,42 @@
 package hexlet.code.Formatters;
 
-import hexlet.code.TreeAnalyzer;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.TreeMap;
+import hexlet.code.Utils;
+
+import java.util.*;
 
 public class Stylish {
-    public static String stylishGenerate(Map<String, String> keys,
-                                         Map<String, Object> firstMap,
-                                         Map<String, Object> secondMap) {
+    public static String stylishGenerate(List<Map<String, Object>> diffMap) {
         StringBuilder sb = new StringBuilder();
-        Map<String, Object> temp = editMapToStylishFormat(keys, firstMap, secondMap);
+        Map<String, Object> temp = editMapToStylishFormat(diffMap);
 
         sb.append("{\n");
-        TreeAnalyzer.pullStringBuilderWithValues(temp, sb);
+        Utils.pullStringBuilderWithValues(temp, sb);
         sb.append("}");
         return String.valueOf(sb).trim();
     }
 
-    public static Map<String, Object> editMapToStylishFormat(Map<String, String> keys,
-                                                      Map<String, Object> firstMap,
-                                                      Map<String, Object> secondMap) {
+    public static Map<String, Object> editMapToStylishFormat(List<Map<String, Object>> diffList) {
         final int substringForLinter = 4;
         Map<String, Object> temp = new TreeMap<>(Comparator.comparing((String str) ->
                 str.substring(substringForLinter))
                 .thenComparingInt(str -> " -+".indexOf(str.charAt(2))));
 
-        for (Map.Entry<String, String> map : keys.entrySet()) {
-            switch (map.getValue()) {
-                case "added":
-                    temp.put("  + " + map.getKey() + ": ", secondMap.get(map.getKey()) + "\n");
-                    break;
-                case "changed":
-                    temp.put("  - " + map.getKey() + ": ", firstMap.get(map.getKey()) + "\n");
-                    temp.put("  + " + map.getKey() + ": ", secondMap.get(map.getKey()) + "\n");
-                    break;
-                case "unchanged":
-                    temp.put("    " + map.getKey() + ": ", secondMap.get(map.getKey()) + "\n");
-                    break;
-                case "deleted":
-                    temp.put("  - " + map.getKey() + ": ", firstMap.get(map.getKey()) + "\n");
-                    break;
-                default:
-                    break;
+        for (Map map : diffList) {
+            Map<String, Object> diffMap = new LinkedHashMap<>(map);
+            for (Map.Entry<String, Object> diff : diffMap.entrySet()) {
+                if (Objects.equals(diff.getValue() , "changed")) {
+                    temp.put("  - " + diff.getKey() + ": ", map.get("oldValue") + "\n");
+                    temp.put("  + " + diff.getKey() + ": ", map.get("newValue") + "\n");
+                }
+                if (Objects.equals(diff.getValue(), "added")) {
+                    temp.put("  + " + diff.getKey() + ": ", map.get("newValue") + "\n");
+                }
+                if (Objects.equals(diff.getValue(), "unchanged")) {
+                    temp.put("    " + diff.getKey() + ": ", map.get("value") + "\n");
+                }
+                if (Objects.equals(diff.getValue(), "deleted")) {
+                    temp.put("  - " + diff.getKey() + ": ", map.get("oldValue") + "\n");
+                }
             }
         }
         return temp;

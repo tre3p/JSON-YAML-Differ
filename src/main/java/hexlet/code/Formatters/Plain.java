@@ -1,67 +1,66 @@
 package hexlet.code.Formatters;
 
 import hexlet.code.TreeAnalyzer;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.List;
-import java.util.TreeMap;
-import java.util.Arrays;
+import hexlet.code.Utils;
+
+import java.util.*;
 
 
 public class Plain {
-    public static String plainGenerate(Map<String, String> keys,
-                                       Map<String, Object> firstMap,
-                                       Map<String, Object> secondMap) {
+    public static String plainGenerate(List<Map<String, Object>> defaultDiffList) {
         StringBuilder sb = new StringBuilder();
-        firstMap = mapFormatter(firstMap);
-        secondMap = mapFormatter(secondMap);
-        Map<String, Object> temp = editMapToPlainFormat(keys, firstMap, secondMap);
-        return String.valueOf(TreeAnalyzer.pullStringBuilderWithValues(temp, sb)).trim();
+        List<Map<String, Object>> editedDefList = mapFormatter(defaultDiffList);
+        Map<String, Object> plainResult = editMapToPlainFormat(editedDefList);
+        return String.valueOf(Utils.pullStringBuilderWithValues(plainResult, sb)).trim();
     }
 
-    public static Map<String, Object> mapFormatter(Map<String, Object> map) {
-        for (Map.Entry<String, Object> firstEntrySet : map.entrySet()) {
-            if (firstEntrySet.getValue() instanceof Map
-                    || firstEntrySet.getValue() instanceof List
-                    || firstEntrySet.getValue() instanceof Arrays) {
-                map.put(firstEntrySet.getKey(), "[complex value]");
-            }
+    public static List<Map<String, Object>> mapFormatter(List<Map<String, Object>> defaultDiffList) {
+        List<Map<String, Object>> resultList = new ArrayList<>();
 
-            if (firstEntrySet.getValue() instanceof String && !firstEntrySet.getValue().equals("[complex value]")) {
-                map.put(firstEntrySet.getKey(), "'" + map.get(firstEntrySet.getKey()) + "'");
+        for (Map map : defaultDiffList) {
+            Map<String, Object> temp = new HashMap<>(map);
+            for (Map.Entry<String, Object> firstEntrySet : temp.entrySet()) {
+                if (firstEntrySet.getValue() instanceof Map
+                        || firstEntrySet.getValue() instanceof List
+                        || firstEntrySet.getValue() instanceof Arrays) {
+                    temp.put(firstEntrySet.getKey(), "[complex value]");
+                }
+
+                if (firstEntrySet.getValue() instanceof String && !firstEntrySet.getValue().equals("[complex value]")) {
+                    temp.put(firstEntrySet.getKey(), "'" + temp.get(firstEntrySet.getKey()) + "'");
+                }
+                resultList.add(temp);
             }
         }
-        return map;
+        return resultList;
     }
 
-    public static Map<String, Object> editMapToPlainFormat(Map<String, String> keys,
-                                                      Map<String, Object> firstMap,
-                                                      Map<String, Object> secondMap) {
+    public static Map<String, Object> editMapToPlainFormat(List<Map<String, Object>> defaultDiffList) {
         final int substringForLinter = 10;
-        Map<String, Object> temp = new TreeMap<>(Comparator.comparing((String str) ->
+        Map<String, Object> result = new TreeMap<>(Comparator.comparing((String str) ->
                 str.substring(substringForLinter))
                 .thenComparingInt(str -> "Property ".indexOf(str.charAt(2))));
 
-        for (Map.Entry<String, String> map : keys.entrySet()) {
-            switch (map.getValue()) {
-                case "added":
-                    temp.put("Property '"
-                            + map.getKey(), "' was added with value: "
-                            + secondMap.get(map.getKey()) + "\n");
-                    break;
-                case "changed":
-                    temp.put("Property '"
-                            + map.getKey(), "' was updated. From "
-                            + firstMap.get(map.getKey()) + " to "
-                            + secondMap.get(map.getKey()) + "\n");
-                    break;
-                case "deleted":
-                    temp.put("Property '" + map.getKey(), "' was removed\n");
-                    break;
-                default:
-                    break;
+        for (Map map : defaultDiffList) {
+            Map<String, Object> temp = new HashMap<>(map);
+            for (Map.Entry<String, Object> diff : temp.entrySet()) {
+                if (Objects.equals(diff.getValue(), "'added'")) {
+                    result.put("Property '"
+                            + diff.getKey(), "' was added with value: "
+                            + map.get("newValue") + "\n");
+                }
+                if (Objects.equals(diff.getValue(), "'changed'")) {
+                    result.put("Property '"
+                            + diff.getKey(), "' was updated. From "
+                            + map.get("oldValue") + " to "
+                            + map.get("newValue") + "\n");
+
+                }
+                if (Objects.equals(diff.getValue(), "'deleted'")) {
+                    result.put("Property '" + diff.getKey(), "' was removed\n");
+                }
             }
         }
-        return temp;
+        return result;
     }
 }

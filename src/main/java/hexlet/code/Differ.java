@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 
 public class Differ {
@@ -17,8 +18,8 @@ public class Differ {
         String secondFileToString = fileParse(filepath2);
         Map<String, Object> firstMap = Parser.parseToMap(firstFileToString, filepath1);
         Map<String, Object> secondMap = Parser.parseToMap(secondFileToString, filepath2);
-        Map<String, String> defaultDiffMap = TreeAnalyzer.pullMapWithDefaultDiff(firstMap, secondMap);
-        return Formatter.formatter(format, defaultDiffMap, firstMap, secondMap);
+        List<Map<String, Object>> defaultDiffList = TreeAnalyzer.pullMapWithDefaultDiff(firstMap, secondMap);
+        return Formatter.formatter(format, defaultDiffList);
     }
 
     public static String fileParse(String path) throws IOException {
