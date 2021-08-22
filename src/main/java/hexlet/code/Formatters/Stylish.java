@@ -16,7 +16,7 @@ public class Stylish {
 
         sb.append("{\n");
         Utils.pullStringBuilderWithValues(temp, sb);
-        sb.append("}\n");
+        sb.append("}");
         return sb.toString().trim();
     }
 
