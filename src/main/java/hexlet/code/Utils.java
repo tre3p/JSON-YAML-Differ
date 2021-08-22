@@ -8,7 +8,6 @@ public class Utils {
             sb.append(test.getKey()).append(test.getValue()).append("\n");
 
         }
-        String result = sb.toString().trim();
-        return result;
+        return String.valueOf(sb);
     }
 }

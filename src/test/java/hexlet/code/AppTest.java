@@ -22,8 +22,6 @@ public class AppTest {
     private Path pathToPlain = getPath("src/test/resources/expectedForPlain");
     private final String expectedForPlainOutput = Files.readString(pathToPlain);
 
-
-
     public AppTest() throws IOException {
     }
 
