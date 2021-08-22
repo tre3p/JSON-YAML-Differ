@@ -1,13 +1,12 @@
 package hexlet.code.Formatters;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.Utils;
-
-import java.util.*;
+import java.util.Map;
+import java.util.List;
+import java.util.HashMap;
 
 public class Json {
-    public static String jsonGenerate(List<Map<String, Object>> diffList) throws JsonProcessingException {
+    public static String jsonGenerate(List<Map<String, Object>> diffList) {
         StringBuilder sb = new StringBuilder();
         Map<String, Object> temp = editMapToJsonFormat(diffList);
 

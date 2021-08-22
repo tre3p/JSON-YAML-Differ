@@ -1,6 +1,5 @@
 package hexlet.code;
 
-import hexlet.code.Formatters.Json;
 import hexlet.code.Formatters.Plain;
 import hexlet.code.Formatters.Stylish;
 import java.io.IOException;
@@ -19,6 +18,7 @@ public class Formatter {
             result = Plain.plainGenerate(defaultDiffList);
         }
         if (format.equals("json")) {
+            return null;
             //result = Json.jsonGenerate(defaultDiffList);
         }
         return result;

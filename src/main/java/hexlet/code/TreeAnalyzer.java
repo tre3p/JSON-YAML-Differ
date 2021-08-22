@@ -1,10 +1,18 @@
 package hexlet.code;
 
-import java.util.*;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.LinkedHashMap;
+import java.util.Objects;
+import java.util.HashSet;
+
 
 public class TreeAnalyzer {
     public static List<Map<String, Object>> pullMapWithDefaultDiff(Map<String, Object> firstMap,
-                                                             Map<String, Object> secondMap) {
+                                                                   Map<String, Object> secondMap) {
         Set<String> keySet = pullSetWithKeys(firstMap, secondMap);
         List<Map<String, Object>> diffList = new LinkedList<>();
 
