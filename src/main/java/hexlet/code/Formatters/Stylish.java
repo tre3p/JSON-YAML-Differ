@@ -2,7 +2,11 @@ package hexlet.code.Formatters;
 
 import hexlet.code.Utils;
 
-import java.util.*;
+import java.util.Map;
+import java.util.List;
+import java.util.Comparator;
+import java.util.TreeMap;
+import java.util.Objects;
 
 public class Stylish {
     public static String stylishGenerate(List<Map<String, Object>> diffMap) {
@@ -21,9 +25,8 @@ public class Stylish {
                 str.substring(substringForLinter))
                 .thenComparingInt(str -> " -+".indexOf(str.charAt(2))));
 
-        for (Map map : diffList) {
-            Map<String, Object> diffMap = new LinkedHashMap<>(map);
-            for (Map.Entry<String, Object> diff : diffMap.entrySet()) {
+        for (Map<String, Object> map : diffList) {
+            for (Map.Entry<String, Object> diff : map.entrySet()) {
                 if (Objects.equals(diff.getValue(), "changed")) {
                     temp.put("  - " + diff.getKey() + ": ", map.get("oldValue") + "\n");
                     temp.put("  + " + diff.getKey() + ": ", map.get("newValue") + "\n");

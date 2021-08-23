@@ -30,7 +30,8 @@ public class TreeAnalyzer {
                 diffList.add(temp);
             }
             if (secondMap.containsKey(s)
-                    && firstMap.containsKey(s) && !Objects.equals(firstMap.get(s), secondMap.get(s))) {
+                    && firstMap.containsKey(s)
+                    && !Objects.equals(firstMap.get(s), secondMap.get(s))) {
                 Map<String, Object> temp = new LinkedHashMap<>();
                 temp.put(s, "changed");
                 temp.put("oldValue", firstMap.get(s));
