@@ -13,7 +13,7 @@ public class Json {
         sb.append("{\n");
         Utils.pullStringBuilderWithValues(temp, sb);
         sb.append("}");
-        return String.valueOf(sb).trim();
+        return null;
     }
 
     public static Map<String, Object> editMapToJsonFormat(List<Map<String, Object>> diffList) {
