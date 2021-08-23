@@ -18,8 +18,8 @@ public class Plain {
         List<Map<String, Object>> editedDefList = mapFormatter(defaultDiffList);
         Map<String, Object> plainResult = editMapToPlainFormat(editedDefList);
         Utils.pullStringBuilderWithValues(plainResult, sb);
-        String result = sb.toString().trim();
-        return result;
+        sb.deleteCharAt(sb.lastIndexOf("\n"));
+        return sb.toString();
     }
 
     public static List<Map<String, Object>> mapFormatter(List<Map<String, Object>> defaultDiffList) {
@@ -55,17 +55,17 @@ public class Plain {
                 if (Objects.equals(diff.getValue(), "'added'")) {
                     result.put("Property '"
                             + diff.getKey(), "' was added with value: "
-                            + map.get("newValue"));
+                            + map.get("newValue") + "\n");
                 }
                 if (Objects.equals(diff.getValue(), "'changed'")) {
                     result.put("Property '"
                             + diff.getKey(), "' was updated. From "
                             + map.get("oldValue") + " to "
-                            + map.get("newValue"));
+                            + map.get("newValue") + "\n");
 
                 }
                 if (Objects.equals(diff.getValue(), "'deleted'")) {
-                    result.put("Property '" + diff.getKey(), "' was removed");
+                    result.put("Property '" + diff.getKey(), "' was removed\n");
                 }
             }
         }

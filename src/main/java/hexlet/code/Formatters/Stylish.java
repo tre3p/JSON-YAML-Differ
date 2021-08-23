@@ -12,9 +12,7 @@ public class Stylish {
         sb.append("{\n");
         Utils.pullStringBuilderWithValues(temp, sb);
         sb.append("}");
-        System.out.println(sb);
-        String result = sb.toString().trim();
-        return result;
+        return sb.toString();
     }
 
     public static Map<String, Object> editMapToStylishFormat(List<Map<String, Object>> diffList) {
@@ -27,17 +25,17 @@ public class Stylish {
             Map<String, Object> diffMap = new LinkedHashMap<>(map);
             for (Map.Entry<String, Object> diff : diffMap.entrySet()) {
                 if (Objects.equals(diff.getValue(), "changed")) {
-                    temp.put("  - " + diff.getKey() + ": ", map.get("oldValue"));
-                    temp.put("  + " + diff.getKey() + ": ", map.get("newValue"));
+                    temp.put("  - " + diff.getKey() + ": ", map.get("oldValue") + "\n");
+                    temp.put("  + " + diff.getKey() + ": ", map.get("newValue") + "\n");
                 }
                 if (Objects.equals(diff.getValue(), "added")) {
-                    temp.put("  + " + diff.getKey() + ": ", map.get("newValue"));
+                    temp.put("  + " + diff.getKey() + ": ", map.get("newValue") + "\n");
                 }
                 if (Objects.equals(diff.getValue(), "unchanged")) {
-                    temp.put("    " + diff.getKey() + ": ", map.get("value"));
+                    temp.put("    " + diff.getKey() + ": ", map.get("value") + "\n");
                 }
                 if (Objects.equals(diff.getValue(), "deleted")) {
-                    temp.put("  - " + diff.getKey() + ": ", map.get("oldValue"));
+                    temp.put("  - " + diff.getKey() + ": ", map.get("oldValue") + "\n");
                 }
             }
         }
