@@ -2,12 +2,7 @@ package hexlet.code.Formatters;
 
 import hexlet.code.Utils;
 
-import java.util.Map;
-import java.util.List;
-import java.util.TreeMap;
-import java.util.Comparator;
-import java.util.Objects;
-import java.util.LinkedHashMap;
+import java.util.*;
 
 public class Stylish {
     public static String stylishGenerate(List<Map<String, Object>> diffMap) {
@@ -18,7 +13,8 @@ public class Stylish {
         Utils.pullStringBuilderWithValues(temp, sb);
         sb.append("}");
         System.out.println(sb);
-        return sb.toString().trim();
+        String result = sb.toString().trim();
+        return result;
     }
 
     public static Map<String, Object> editMapToStylishFormat(List<Map<String, Object>> diffList) {

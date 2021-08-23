@@ -17,7 +17,9 @@ public class Plain {
         StringBuilder sb = new StringBuilder();
         List<Map<String, Object>> editedDefList = mapFormatter(defaultDiffList);
         Map<String, Object> plainResult = editMapToPlainFormat(editedDefList);
-        return Utils.pullStringBuilderWithValues(plainResult, sb).trim();
+        Utils.pullStringBuilderWithValues(plainResult, sb);
+        String result = sb.toString().trim();
+        return result;
     }
 
     public static List<Map<String, Object>> mapFormatter(List<Map<String, Object>> defaultDiffList) {
