@@ -17,33 +17,27 @@ public class TreeAnalyzer {
         List<Map<String, Object>> diffList = new LinkedList<>();
 
         for (String s : keySet) {
+            Map<String, Object> temp = new LinkedHashMap<>();
             if (!firstMap.containsKey(s)) {
-                Map<String, Object> temp = new LinkedHashMap<>();
                 temp.put(s, "added");
                 temp.put("newValue", secondMap.get(s));
-                diffList.add(temp);
             }
             if (!secondMap.containsKey(s)) {
-                Map<String, Object> temp = new LinkedHashMap<>();
                 temp.put(s, "deleted");
                 temp.put("oldValue", firstMap.get(s));
-                diffList.add(temp);
             }
             if (secondMap.containsKey(s)
                     && firstMap.containsKey(s)
                     && !Objects.equals(firstMap.get(s), secondMap.get(s))) {
-                Map<String, Object> temp = new LinkedHashMap<>();
                 temp.put(s, "changed");
                 temp.put("oldValue", firstMap.get(s));
                 temp.put("newValue", secondMap.get(s));
-                diffList.add(temp);
             }
             if (Objects.equals(firstMap.get(s), secondMap.get(s))) {
-                Map<String, Object> temp = new LinkedHashMap<>();
                 temp.put(s, "unchanged");
                 temp.put("value", firstMap.get(s));
-                diffList.add(temp);
             }
+            diffList.add(temp);
         }
         return diffList;
     }

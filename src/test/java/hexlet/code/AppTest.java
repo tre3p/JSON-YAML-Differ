@@ -22,7 +22,7 @@ public class AppTest {
     private Path pathToPlain = getPath("src/test/resources/expectedForPlain");
     private final String expectedForPlainOutput = Files.readString(pathToPlain);
 
-    private Path pathToJson = getPath("src/test/resources/expectedForJsonOutput.json");
+    private Path pathToJson = getPath("src/test/resources/expectedForJson.json");
     private final String expectedForJsonOutput = Files.readString(pathToJson);
 
     private Path pathToRecursiveJson = getPath("src/test/resources/expectedForRecursiveJson.json");
