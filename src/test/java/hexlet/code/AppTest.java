@@ -8,11 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class AppTest {
-
-    public static Path getPath(String path) {
-        return Paths.get(path).toAbsolutePath().normalize();
-    }
-
     private Path pathForFlat = getPath("src/test/resources/expectedForStylishPlain");
     private final String expectedForFlat = Files.readString(pathForFlat);
 
@@ -93,5 +88,9 @@ public class AppTest {
         String secondJson = "src/test/resources/fixtures/secondRecursiveJson.json";
 
         assertEquals(expectedForJsonRecursive, Differ.generate(firstJson, secondJson, "json"));
+    }
+
+    public static Path getPath(String path) {
+        return Paths.get(path).toAbsolutePath().normalize();
     }
 }
