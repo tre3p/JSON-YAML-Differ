@@ -4,9 +4,10 @@ import hexlet.code.Utils;
 
 import java.util.Map;
 import java.util.List;
-import java.util.Comparator;
 import java.util.TreeMap;
+import java.util.Comparator;
 import java.util.Objects;
+import java.util.HashMap;
 
 public class Stylish {
     public static String stylishGenerate(List<Map<String, Object>> diffMap) {
@@ -28,20 +29,44 @@ public class Stylish {
         for (Map<String, Object> map : diffList) {
             for (Map.Entry<String, Object> diff : map.entrySet()) {
                 if (Objects.equals(diff.getValue(), "changed")) {
-                    temp.put("  - " + diff.getKey() + ": ", map.get("oldValue") + "\n");
-                    temp.put("  + " + diff.getKey() + ": ", map.get("newValue") + "\n");
+                    temp.putAll(pullMapWithChangedValues(diff.getKey(), map.get("oldValue"), map.get("newValue")));
                 }
                 if (Objects.equals(diff.getValue(), "added")) {
-                    temp.put("  + " + diff.getKey() + ": ", map.get("newValue") + "\n");
+                    temp.putAll(pullMapWithAddedValues(diff.getKey(), map.get("newValue")));
                 }
                 if (Objects.equals(diff.getValue(), "unchanged")) {
-                    temp.put("    " + diff.getKey() + ": ", map.get("oldValue") + "\n");
+                    temp.putAll(pullMapWithUnchangedValues(diff.getKey(), map.get("oldValue")));
                 }
                 if (Objects.equals(diff.getValue(), "deleted")) {
-                    temp.put("  - " + diff.getKey() + ": ", map.get("oldValue") + "\n");
+                    temp.putAll(pullMapWithDeletedValues(diff.getKey(), map.get("oldValue")));
                 }
             }
         }
         return temp;
+    }
+
+    public static Map<String, Object> pullMapWithChangedValues(String key, Object oldValue, Object newValue) {
+        Map<String, Object> result = new HashMap<>();
+        result.putAll(pullMapWithDeletedValues(key, oldValue));
+        result.putAll(pullMapWithAddedValues(key, newValue));
+        return result;
+    }
+
+    public static Map<String, Object> pullMapWithDeletedValues(String key, Object oldValue) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("  - " + key + ": ", oldValue + "\n");
+        return result;
+    }
+
+    public static Map<String, Object> pullMapWithAddedValues(String key, Object newValue) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("  + " + key + ": ", newValue + "\n");
+        return result;
+    }
+
+    public static Map<String, Object> pullMapWithUnchangedValues(String key, Object oldValue) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("    " + key + ": ", oldValue + "\n");
+        return result;
     }
 }
