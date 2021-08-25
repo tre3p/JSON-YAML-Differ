@@ -22,29 +22,29 @@ public class Json {
             for (Map.Entry<String, Object> diff : map.entrySet()) {
                 Map<String, Object> temp = new LinkedHashMap<>();
                 if (Objects.equals(diff.getValue(), "changed")) {
-                    temp.putAll(addValueToMap(diff.getKey(),
-                            "changed"
-                            , map.get("oldValue")
-                            , map.get("newValue")));
+                    temp.putAll(addValueToMap(diff.getKey()
+                            ,"changed"
+                            ,map.get("oldValue")
+                            ,map.get("newValue")));
                 }
                 if (Objects.equals(diff.getValue(), "added")) {
                     temp.putAll(addValueToMap(diff.getKey()
-                            , "added"
-                            , map.get("newValue")
-                            , map.get("newValue")));
+                            ,"added"
+                            ,map.get("newValue")
+                            ,map.get("newValue")));
                 }
                 if (Objects.equals(diff.getValue(), "unchanged")) {
                     temp.putAll(addValueToMap(diff.getKey()
-                            , "unchanged"
-                            , map.get("oldValue")
-                            , map.get("oldValue")));
+                            ,"unchanged"
+                            ,map.get("oldValue")
+                            ,map.get("oldValue")));
 
                 }
                 if (Objects.equals(diff.getValue(), "deleted")) {
                     temp.putAll(addValueToMap(diff.getKey()
-                            , "deleted"
-                            , map.get("oldValue")
-                            , map.get("oldValue")));
+                            ,"deleted"
+                            ,map.get("oldValue")
+                            ,map.get("oldValue")));
                 }
                 if (temp.size() != 0) {
                     result.add(temp);
