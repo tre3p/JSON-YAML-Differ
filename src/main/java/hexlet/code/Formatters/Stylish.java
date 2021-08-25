@@ -13,9 +13,9 @@ public class Stylish {
         StringBuilder sb = new StringBuilder();
         Map<String, Object> temp = editMapToStylishFormat(diffMap);
 
-        sb.append("{\n");
-        Utils.pullStringBuilderWithValues(temp, sb);
-        sb.append("}");
+        sb.append("{\n")
+                .append(Utils.pullStringBuilderWithValues(temp))
+                .append("}");
         return sb.toString();
     }
 
@@ -35,7 +35,7 @@ public class Stylish {
                     temp.put("  + " + diff.getKey() + ": ", map.get("newValue") + "\n");
                 }
                 if (Objects.equals(diff.getValue(), "unchanged")) {
-                    temp.put("    " + diff.getKey() + ": ", map.get("value") + "\n");
+                    temp.put("    " + diff.getKey() + ": ", map.get("oldValue") + "\n");
                 }
                 if (Objects.equals(diff.getValue(), "deleted")) {
                     temp.put("  - " + diff.getKey() + ": ", map.get("oldValue") + "\n");

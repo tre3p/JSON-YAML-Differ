@@ -22,32 +22,44 @@ public class Json {
             for (Map.Entry<String, Object> diff : map.entrySet()) {
                 Map<String, Object> temp = new LinkedHashMap<>();
                 if (Objects.equals(diff.getValue(), "changed")) {
-                    temp.put("field", diff.getKey());
-                    temp.put("status", "changed");
-                    temp.put("oldValue", map.get("oldValue"));
-                    temp.put("newValue", map.get("newValue"));
+                    temp.putAll(addValueToMap(diff.getKey(),
+                            "changed"
+                            , map.get("oldValue")
+                            , map.get("newValue")));
                 }
                 if (Objects.equals(diff.getValue(), "added")) {
-                    temp.put("field", diff.getKey());
-                    temp.put("status", "added");
-                    temp.put("newValue", map.get("newValue"));
+                    temp.putAll(addValueToMap(diff.getKey()
+                            , "added"
+                            , map.get("newValue")
+                            , map.get("newValue")));
                 }
                 if (Objects.equals(diff.getValue(), "unchanged")) {
-                    temp.put("field", diff.getKey());
-                    temp.put("status", "unchanged");
-                    temp.put("oldValue", map.get("value"));
-                    temp.put("newValue", map.get("value"));
+                    temp.putAll(addValueToMap(diff.getKey()
+                            , "unchanged"
+                            , map.get("oldValue")
+                            , map.get("oldValue")));
+
                 }
                 if (Objects.equals(diff.getValue(), "deleted")) {
-                    temp.put("field", diff.getKey());
-                    temp.put("status", "deleted");
-                    temp.put("oldValue", map.get("oldValue"));
+                    temp.putAll(addValueToMap(diff.getKey()
+                            , "deleted"
+                            , map.get("oldValue")
+                            , map.get("oldValue")));
                 }
                 if (temp.size() != 0) {
                     result.add(temp);
                 }
             }
         }
+        return result;
+    }
+
+    public static Map<String, Object> addValueToMap(String key, String status, Object oldValue, Object newValue) {
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("field", key);
+        result.put("status", status);
+        result.put("oldValue", oldValue);
+        result.put("newValue", newValue);
         return result;
     }
 

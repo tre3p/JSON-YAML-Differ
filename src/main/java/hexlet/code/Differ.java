@@ -14,15 +14,15 @@ public class Differ {
     }
 
     public static String generate(String filepath1, String filepath2, String format) throws Exception {
-        String firstFileToString = fileParse(filepath1);
-        String secondFileToString = fileParse(filepath2);
+        String firstFileToString = readFileContent(filepath1);
+        String secondFileToString = readFileContent(filepath2);
         Map<String, Object> firstMap = Parser.parseToMap(firstFileToString, filepath1);
         Map<String, Object> secondMap = Parser.parseToMap(secondFileToString, filepath2);
-        List<Map<String, Object>> defaultDiffList = TreeAnalyzer.pullMapWithDefaultDiff(firstMap, secondMap);
-        return Formatter.formatter(format, defaultDiffList);
+        List<Map<String, Object>> defaultDiffList = TreeAnalyzer.analyzeDiff(firstMap, secondMap);
+        return Formatter.formatDiff(format, defaultDiffList);
     }
 
-    public static String fileParse(String path) throws IOException {
+    public static String readFileContent(String path) throws IOException {
         Path resultPath = Paths.get(path).toAbsolutePath().normalize();
         return Files.readString(resultPath);
     }

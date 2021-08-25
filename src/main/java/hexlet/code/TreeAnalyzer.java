@@ -11,10 +11,10 @@ import java.util.HashSet;
 
 
 public class TreeAnalyzer {
-    public static List<Map<String, Object>> pullMapWithDefaultDiff(Map<String, Object> firstMap,
+    public static List<Map<String, Object>> analyzeDiff(Map<String, Object> firstMap,
                                                                    Map<String, Object> secondMap) {
         Set<String> keySet = pullSetWithKeys(firstMap, secondMap);
-        List<Map<String, Object>> diffList = new LinkedList<>();
+        List<Map<String, Object>> analyzedDiffs = new LinkedList<>();
 
         for (String s : keySet) {
             Map<String, Object> temp = new LinkedHashMap<>();
@@ -35,11 +35,11 @@ public class TreeAnalyzer {
             }
             if (Objects.equals(firstMap.get(s), secondMap.get(s))) {
                 temp.put(s, "unchanged");
-                temp.put("value", firstMap.get(s));
+                temp.put("oldValue", firstMap.get(s));
             }
-            diffList.add(temp);
+            analyzedDiffs.add(temp);
         }
-        return diffList;
+        return analyzedDiffs;
     }
 
     public static Set<String> pullSetWithKeys(Map<String, Object> firstMap, Map<String, Object> secondMap) {

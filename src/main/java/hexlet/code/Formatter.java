@@ -8,19 +8,16 @@ import java.util.List;
 import java.util.Map;
 
 public class Formatter {
-    public static String formatter(String format,
-                                   List<Map<String, Object>> defaultDiffList) throws IOException {
-        String result = null;
-
+    public static String formatDiff(String format, List<Map<String, Object>> diff) throws IOException {
         if (format.equals("stylish")) {
-            result = Stylish.stylishGenerate(defaultDiffList);
+            return Stylish.stylishGenerate(diff);
         }
         if (format.equals("plain")) {
-            result = Plain.plainGenerate(defaultDiffList);
+            return Plain.plainGenerate(diff);
         }
         if (format.equals("json")) {
-            result = Json.jsonGenerate(defaultDiffList);
+            return Json.jsonGenerate(diff);
         }
-        return result;
+        return null;
     }
 }
