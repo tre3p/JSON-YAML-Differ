@@ -12,10 +12,10 @@ import java.util.Objects;
 
 
 public class Plain {
-    public static String plainGenerate(List<Map<String, Object>> defaultDiffList) {
+    public static String plainGenerate(List<Map<String, Object>> diffList) {
         StringBuilder sb = new StringBuilder();
-        List<Map<String, Object>> editedDifflist = complexValueMapFormatter(defaultDiffList);
-        editedDifflist = quotesMapFormatter(defaultDiffList);
+        List<Map<String, Object>> editedDifflist = complexValueMapFormatter(diffList);
+        editedDifflist = quotesMapFormatter(diffList);
         Map<String, Object> plainResult = editMapToPlainFormat(editedDifflist);
         sb.append(Utils.pullStringBuilderWithValues(plainResult));
         sb.deleteCharAt(sb.lastIndexOf("\n"));
@@ -51,13 +51,13 @@ public class Plain {
         return resultList;
     }
 
-    public static Map<String, Object> editMapToPlainFormat(List<Map<String, Object>> defaultDiffList) {
+    public static Map<String, Object> editMapToPlainFormat(List<Map<String, Object>> diffList) {
         final int substringForLinter = 10;
         Map<String, Object> result = new TreeMap<>(Comparator.comparing((String str) ->
                 str.substring(substringForLinter))
                 .thenComparingInt(str -> "Property ".indexOf(str.charAt(2))));
 
-        for (Map<String, Object> map : defaultDiffList) {
+        for (Map<String, Object> map : diffList) {
             result.putAll(diffAnalyzer(map));
         }
         return result;
