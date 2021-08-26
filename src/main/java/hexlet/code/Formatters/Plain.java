@@ -14,26 +14,36 @@ import java.util.Objects;
 public class Plain {
     public static String plainGenerate(List<Map<String, Object>> defaultDiffList) {
         StringBuilder sb = new StringBuilder();
-        List<Map<String, Object>> editedDefList = mapFormatter(defaultDiffList);
-        Map<String, Object> plainResult = editMapToPlainFormat(editedDefList);
+        List<Map<String, Object>> editedDifflist = complexValueMapFormatter(defaultDiffList);
+        editedDifflist = quotesMapFormatter(defaultDiffList);
+        Map<String, Object> plainResult = editMapToPlainFormat(editedDifflist);
         sb.append(Utils.pullStringBuilderWithValues(plainResult));
         sb.deleteCharAt(sb.lastIndexOf("\n"));
         return sb.toString();
     }
 
-    public static List<Map<String, Object>> mapFormatter(List<Map<String, Object>> defaultDiffList) {
+    public static List<Map<String, Object>> complexValueMapFormatter(List<Map<String, Object>> diffList) {
         List<Map<String, Object>> resultList = new ArrayList<>();
 
-        for (Map<String, Object> map : defaultDiffList) {
-            for (Map.Entry<String, Object> firstEntrySet : map.entrySet()) {
-                if (firstEntrySet.getValue() instanceof Map
-                        || firstEntrySet.getValue() instanceof List
-                        || firstEntrySet.getValue() instanceof Arrays) {
-                    map.put(firstEntrySet.getKey(), "[complex value]");
+        for (Map<String, Object> map : diffList) {
+            for (Map.Entry<String, Object> entrySet : map.entrySet()) {
+                if (entrySet.getValue() instanceof Map
+                        || entrySet.getValue() instanceof List
+                        || entrySet.getValue() instanceof Arrays) {
+                    map.put(entrySet.getKey(), "[complex value]");
                 }
+            }
+        }
+        return resultList;
+    }
 
-                if (firstEntrySet.getValue() instanceof String && !firstEntrySet.getValue().equals("[complex value]")) {
-                    map.put(firstEntrySet.getKey(), "'" + map.get(firstEntrySet.getKey()) + "'");
+    public static List<Map<String, Object>> quotesMapFormatter(List<Map<String, Object>> diffList) {
+        List<Map<String, Object>> resultList = new ArrayList<>();
+
+        for (Map<String, Object> map : diffList) {
+            for (Map.Entry<String, Object> entrySet : map.entrySet()) {
+                if (entrySet.getValue() instanceof String && !entrySet.getValue().equals("[complex value]")) {
+                    map.put(entrySet.getKey(), "'" + map.get(entrySet.getKey()) + "'");
                 }
                 resultList.add(map);
             }
