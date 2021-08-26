@@ -19,23 +19,30 @@ public class TreeAnalyzer {
         for (String s : keySet) {
             Map<String, Object> temp = new LinkedHashMap<>();
             if (!firstMap.containsKey(s)) {
-                temp.put(s, "added");
+                temp.put("field", s);
+                temp.put("status", "added");
+                temp.put("oldValue", secondMap.get(s));
                 temp.put("newValue", secondMap.get(s));
             }
             if (!secondMap.containsKey(s)) {
-                temp.put(s, "deleted");
+                temp.put("field", s);
+                temp.put("status", "deleted");
                 temp.put("oldValue", firstMap.get(s));
+                temp.put("newValue", firstMap.get(s));
             }
             if (secondMap.containsKey(s)
                     && firstMap.containsKey(s)
                     && !Objects.equals(firstMap.get(s), secondMap.get(s))) {
-                temp.put(s, "changed");
+                temp.put("field", s);
+                temp.put("status", "changed");
                 temp.put("oldValue", firstMap.get(s));
                 temp.put("newValue", secondMap.get(s));
             }
             if (Objects.equals(firstMap.get(s), secondMap.get(s))) {
-                temp.put(s, "unchanged");
+                temp.put("field", s);
+                temp.put("status", "unchanged");
                 temp.put("oldValue", firstMap.get(s));
+                temp.put("newValue", firstMap.get(s));
             }
             analyzedDiffs.add(temp);
         }

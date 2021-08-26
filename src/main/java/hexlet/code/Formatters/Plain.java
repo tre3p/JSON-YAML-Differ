@@ -1,15 +1,14 @@
 package hexlet.code.Formatters;
 
 import hexlet.code.Utils;
-
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.TreeMap;
 import java.util.Comparator;
+import java.util.TreeMap;
+import java.util.LinkedHashMap;
 import java.util.Objects;
-import java.util.HashMap;
 
 
 public class Plain {
@@ -49,39 +48,28 @@ public class Plain {
                 .thenComparingInt(str -> "Property ".indexOf(str.charAt(2))));
 
         for (Map<String, Object> map : defaultDiffList) {
-            for (Map.Entry<String, Object> diff : map.entrySet()) {
-                if (Objects.equals(diff.getValue(), "'added'")) {
-                    result.putAll(pullMapWithAddedValues(diff.getKey(), map.get("newValue")));
-                }
-                if (Objects.equals(diff.getValue(), "'changed'")) {
-                    result.putAll(pullMapWithChangedValue(diff.getKey(), map.get("newValue"), map.get("oldValue")));
-                }
-                if (Objects.equals(diff.getValue(), "'deleted'")) {
-                    result.putAll(pullMapWithDeletedValues(diff.getKey()));
-                }
-            }
+            result.putAll(diffAnalyzer(map));
         }
         return result;
     }
 
-    public static Map<String, Object> pullMapWithDeletedValues(String key) {
-        Map<String, Object> result = new HashMap<>();
-        result.put("Property '" + key, "' was removed\n");
-        return result;
-    }
+    public static Map<String, Object> diffAnalyzer(Map<String, Object> map) {
+        Map<String, Object> result = new LinkedHashMap<>();
 
-    public static Map<String, Object> pullMapWithAddedValues(String key, Object newValue) {
-        Map<String, Object> result = new HashMap<>();
-        result.put("Property '" + key, "' was added with value: " + newValue + "\n");
-        return result;
-    }
+        if (Objects.equals(map.get("status"), "'changed'")) {
+            result.put("Property " + map.get("field"), " was updated. From "
+                            + map.get("oldValue")
+                            + " to "
+                            + map.get("newValue") + "\n");
+        }
 
-    public static Map<String, Object> pullMapWithChangedValue(String key, Object newValue, Object oldValue) {
-        Map<String, Object> result = new HashMap<>();
-        result.put("Property '"
-                + key, "' was updated. From "
-                + oldValue + " to "
-                + newValue + "\n");
+        if (Objects.equals(map.get("status"), "'deleted'")) {
+            result.put("Property " + map.get("field"), " was removed\n");
+        }
+
+        if (Objects.equals(map.get("status"), "'added'")) {
+            result.put("Property " + map.get("field"), " was added with value: " + map.get("newValue") + "\n");
+        }
         return result;
     }
 }
