@@ -19,34 +19,31 @@ public class TreeAnalyzer {
         for (String s : keySet) {
             Map<String, Object> temp = new LinkedHashMap<>();
             if (!firstMap.containsKey(s)) {
-                temp.put("field", s);
-                temp.put("status", "added");
-                temp.put("oldValue", secondMap.get(s));
-                temp.put("newValue", secondMap.get(s));
+                temp.putAll(pullMapWithValues(s, "added", secondMap.get(s), secondMap.get(s)));
             }
             if (!secondMap.containsKey(s)) {
-                temp.put("field", s);
-                temp.put("status", "deleted");
-                temp.put("oldValue", firstMap.get(s));
-                temp.put("newValue", firstMap.get(s));
+                temp.putAll(pullMapWithValues(s, "deleted", firstMap.get(s), firstMap.get(s)));
             }
             if (secondMap.containsKey(s)
                     && firstMap.containsKey(s)
                     && !Objects.equals(firstMap.get(s), secondMap.get(s))) {
-                temp.put("field", s);
-                temp.put("status", "changed");
-                temp.put("oldValue", firstMap.get(s));
-                temp.put("newValue", secondMap.get(s));
+                temp.putAll(pullMapWithValues(s, "changed", firstMap.get(s), secondMap.get(s)));
             }
             if (Objects.equals(firstMap.get(s), secondMap.get(s))) {
-                temp.put("field", s);
-                temp.put("status", "unchanged");
-                temp.put("oldValue", firstMap.get(s));
-                temp.put("newValue", firstMap.get(s));
+                temp.putAll(pullMapWithValues(s, "unchanged", firstMap.get(s), firstMap.get(s)));
             }
             analyzedDiffs.add(temp);
         }
         return analyzedDiffs;
+    }
+
+    public static Map<String, Object> pullMapWithValues(String key, String status, Object oldValue, Object newValue) {
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("field", key);
+        result.put("status", status);
+        result.put("oldValue", oldValue);
+        result.put("newValue", newValue);
+        return result;
     }
 
     public static Set<String> pullSetWithKeys(Map<String, Object> firstMap, Map<String, Object> secondMap) {
