@@ -10,13 +10,13 @@ import java.util.Map;
 public class Formatter {
     public static String formatDiff(String format, List<Map<String, Object>> diff) throws IOException {
         if (format.equals("stylish")) {
-            return Stylish.stylishGenerate(diff);
+            return Stylish.stylishGenerator(diff);
         }
         if (format.equals("plain")) {
-            return Plain.plainGenerate(diff);
+            return Plain.plainGenerator(diff);
         }
         if (format.equals("json")) {
-            return Json.jsonGenerate(diff);
+            return Json.jsonGenerator(diff);
         }
         return null;
     }

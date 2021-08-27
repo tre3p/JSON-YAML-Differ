@@ -12,11 +12,10 @@ import java.util.Objects;
 
 
 public class Plain {
-    public static String plainGenerate(List<Map<String, Object>> diffList) {
-        StringBuilder sb = new StringBuilder();
+    public static String plainGenerator(List<Map<String, Object>> diffList) {
         List<Map<String, Object>> editedDiffList = complexValueMapFormatter(diffList);
-        editedDiffList = quotesMapFormatter(diffList);
         Map<String, Object> plainResult = editMapToPlainFormat(editedDiffList);
+        StringBuilder sb = new StringBuilder();
         sb.append(Utils.pullStringBuilderWithValues(plainResult));
         sb.deleteCharAt(sb.lastIndexOf("\n"));
         return sb.toString();
@@ -31,17 +30,9 @@ public class Plain {
                         || entrySet.getValue() instanceof List
                         || entrySet.getValue() instanceof Arrays) {
                     map.put(entrySet.getKey(), "[complex value]");
+
                 }
-            }
-        }
-        return resultList;
-    }
 
-    private static List<Map<String, Object>> quotesMapFormatter(List<Map<String, Object>> diffList) {
-        List<Map<String, Object>> resultList = new ArrayList<>();
-
-        for (Map<String, Object> map : diffList) {
-            for (Map.Entry<String, Object> entrySet : map.entrySet()) {
                 if (entrySet.getValue() instanceof String && !entrySet.getValue().equals("[complex value]")) {
                     map.put(entrySet.getKey(), "'" + map.get(entrySet.getKey()) + "'");
                 }

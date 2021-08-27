@@ -10,7 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.Objects;
 
 public class Stylish {
-    public static String stylishGenerate(List<Map<String, Object>> diffMap) {
+    public static String stylishGenerator(List<Map<String, Object>> diffMap) {
         StringBuilder sb = new StringBuilder();
         Map<String, Object> temp = editMapToStylishFormat(diffMap);
 
