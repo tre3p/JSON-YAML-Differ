@@ -22,7 +22,7 @@ public class Differ {
         return Formatter.formatDiff(format, defaultDiffList);
     }
 
-    public static String readFileContent(String path) throws IOException {
+    private static String readFileContent(String path) throws IOException {
         Path resultPath = Paths.get(path).toAbsolutePath().normalize();
         return Files.readString(resultPath);
     }

@@ -37,7 +37,7 @@ public class TreeAnalyzer {
         return analyzedDiffs;
     }
 
-    public static Map<String, Object> pullMapWithValues(String key, String status, Object oldValue, Object newValue) {
+    private static Map<String, Object> pullMapWithValues(String key, String status, Object oldValue, Object newValue) {
         Map<String, Object> result = new LinkedHashMap<>();
         result.put("field", key);
         result.put("status", status);
@@ -46,7 +46,7 @@ public class TreeAnalyzer {
         return result;
     }
 
-    public static Set<String> pullSetWithKeys(Map<String, Object> firstMap, Map<String, Object> secondMap) {
+    private static Set<String> pullSetWithKeys(Map<String, Object> firstMap, Map<String, Object> secondMap) {
         Set<String> keySet = new HashSet<>(firstMap.keySet());
         keySet.addAll(secondMap.keySet());
         return keySet;

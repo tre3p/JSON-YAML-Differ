@@ -11,7 +11,7 @@ public class Json {
         return stringFormatter(diffList);
     }
 
-    public static String stringFormatter(List<Map<String, Object>> diffList) throws JsonProcessingException {
+    private static String stringFormatter(List<Map<String, Object>> diffList) throws JsonProcessingException {
         StringBuilder sb = new StringBuilder();
         ObjectMapper oj = new ObjectMapper();
         sb.append("{\n  \"diffs\"" + ": [\n");

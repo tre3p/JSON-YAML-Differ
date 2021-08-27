@@ -14,15 +14,15 @@ import java.util.Objects;
 public class Plain {
     public static String plainGenerate(List<Map<String, Object>> diffList) {
         StringBuilder sb = new StringBuilder();
-        List<Map<String, Object>> editedDifflist = complexValueMapFormatter(diffList);
-        editedDifflist = quotesMapFormatter(diffList);
-        Map<String, Object> plainResult = editMapToPlainFormat(editedDifflist);
+        List<Map<String, Object>> editedDiffList = complexValueMapFormatter(diffList);
+        editedDiffList = quotesMapFormatter(diffList);
+        Map<String, Object> plainResult = editMapToPlainFormat(editedDiffList);
         sb.append(Utils.pullStringBuilderWithValues(plainResult));
         sb.deleteCharAt(sb.lastIndexOf("\n"));
         return sb.toString();
     }
 
-    public static List<Map<String, Object>> complexValueMapFormatter(List<Map<String, Object>> diffList) {
+    private static List<Map<String, Object>> complexValueMapFormatter(List<Map<String, Object>> diffList) {
         List<Map<String, Object>> resultList = new ArrayList<>();
 
         for (Map<String, Object> map : diffList) {
@@ -37,7 +37,7 @@ public class Plain {
         return resultList;
     }
 
-    public static List<Map<String, Object>> quotesMapFormatter(List<Map<String, Object>> diffList) {
+    private static List<Map<String, Object>> quotesMapFormatter(List<Map<String, Object>> diffList) {
         List<Map<String, Object>> resultList = new ArrayList<>();
 
         for (Map<String, Object> map : diffList) {
@@ -51,7 +51,7 @@ public class Plain {
         return resultList;
     }
 
-    public static Map<String, Object> editMapToPlainFormat(List<Map<String, Object>> diffList) {
+    private static Map<String, Object> editMapToPlainFormat(List<Map<String, Object>> diffList) {
         final int substringForLinter = 10;
         Map<String, Object> result = new TreeMap<>(Comparator.comparing((String str) ->
                 str.substring(substringForLinter))
@@ -63,7 +63,7 @@ public class Plain {
         return result;
     }
 
-    public static Map<String, Object> diffAnalyzer(Map<String, Object> map) {
+    private static Map<String, Object> diffAnalyzer(Map<String, Object> map) {
         Map<String, Object> result = new LinkedHashMap<>();
 
         if (Objects.equals(map.get("status"), "'changed'")) {

@@ -20,7 +20,7 @@ public class Stylish {
         return sb.toString();
     }
 
-    public static Map<String, Object> editMapToStylishFormat(List<Map<String, Object>> diffList) {
+    private static Map<String, Object> editMapToStylishFormat(List<Map<String, Object>> diffList) {
         final int substringForLinter = 4;
         Map<String, Object> temp = new TreeMap<>(Comparator.comparing((String str) ->
                 str.substring(substringForLinter))
@@ -32,7 +32,7 @@ public class Stylish {
         return temp;
     }
 
-    public static Map<String, Object> mapAnalyzer(Map<String, Object> map) {
+    private static Map<String, Object> mapAnalyzer(Map<String, Object> map) {
         Map<String, Object> result = new LinkedHashMap<>();
 
         if (Objects.equals(map.get("status"), "changed")) {
