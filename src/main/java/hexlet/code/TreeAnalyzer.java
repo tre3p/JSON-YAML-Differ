@@ -1,9 +1,9 @@
 package hexlet.code;
 
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.LinkedHashMap;
 import java.util.Objects;
@@ -14,7 +14,7 @@ public class TreeAnalyzer {
     public static List<Map<String, Object>> analyzeDiff(Map<String, Object> firstMap,
                                                                    Map<String, Object> secondMap) {
         Set<String> keySet = pullSetWithKeys(firstMap, secondMap);
-        List<Map<String, Object>> analyzedDiffs = new LinkedList<>();
+        List<Map<String, Object>> analyzedDiffs = new ArrayList<>();
 
         for (String s : keySet) {
             Map<String, Object> temp = new LinkedHashMap<>();
